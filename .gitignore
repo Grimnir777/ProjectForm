@@ -1,0 +1,11 @@
+#BackEnd
+backend/dir/
+backEnd/node_modules/
+
+#FrontEnd
+frontend/dist/
+frontend/node_modules/
+frontend/temp/
+
+#database
+database/dump
