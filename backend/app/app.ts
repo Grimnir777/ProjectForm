@@ -15,16 +15,8 @@ class App {
     }
 
     private config(): void {
-        this.app.use(cors({ credentials: true, origin: true }));
-        this.app.use(bodyParser.json({ limit: '5mb' }));
-        this.app.use(bodyParser.urlencoded({ limit: '5mb', extended: false }));
-        this.app.use(express.static('upload'));
-        this.app.all('*', function (req, res, next) {
-            res.header("Access-Control-Allow-Origin", "*"); // keep this if your api accepts cross-origin requests
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
-            next();
-        });
-        this.dbConnection();
+
+       // this.dbConnection();
     }
 
     private dbConnection(): void {

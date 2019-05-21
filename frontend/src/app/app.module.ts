@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { WebSocketService } from '../app/web-socket.service'
+
 @NgModule({
   declarations: [
     AppComponent
@@ -13,7 +15,9 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    WebSocketService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
