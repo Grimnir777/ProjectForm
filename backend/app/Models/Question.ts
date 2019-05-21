@@ -7,7 +7,8 @@ var Choix = ChoixSchema;
 export const QuestionSchema = new Schema ({
     nbReponseValidQuestion: { type: Number, required: true},
     pointQuestion: { type: Number, required: true},
-    listChoix: [Choix]
+    listChoix: [Choix],
+    enonce: { type: String, required: true }
 });
 
 export let Question: Model<IQuestion> = mongoose.model<IQuestion>("question", QuestionSchema, "Question");
