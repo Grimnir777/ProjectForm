@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="wrap">
+    <div *ngIf="sessionOpened">
+      <div class="header">
+        <h1>{{actualQCM.nomQCM}}</h1>
+        <h2>{{actualQCM.matiereQCM}}</h2>
+      </div>
+      <div class="questions">
+        <div class="question" *ngFor="let q of actualQCM.listQuestions">
+          <h3 class="questionTitle">{{q.enonce}}</h3>
+          <div class="choices" *ngFor="let ch of q.listChoix">
+            <p class="choice">{{ch.texteChoix}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isTeacher">
+      <p>Démarrer session</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+.container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .wrap{
+    width: 100%;
+    max-width: 780px;
+    height: 85%;
+    max-height:678px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column ;  
+    .header{
+      text-align: center;
+      font-size: 50px;
+    }
+    .questions{
+      .question{
+        margin: 10px;
+        .questionTitle{
+          text-align: center;
+        }
+        .choices{
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          .choice{
+            font-size: 30px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -20,7 +20,9 @@
 
 <router-outlet></router-outlet>
 -->
-<!--The content below is only a placeholder and can be replaced.-->
+<!--
+
+
 <div style="text-align:center">
   <h1>
     Type de session : {{ sessionType }}
@@ -56,6 +58,8 @@
 <button mat-button (click)="quitModule(1)">Quit room 1 !</button>
 <button mat-button (click)="quitModule(2)">Quit room 2 !</button>
 <button mat-button (click)="quitModule(3)">Quit room 3 !</button>
+<app-login></app-login>
 
-
+-->
+<app-session [qcmID]=1 [isTeacher]=true></app-session>
 <router-outlet></router-outlet>

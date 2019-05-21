@@ -7,12 +7,14 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
 
 
-import { WebSocketService } from '../app/web-socket.service'
+import { WebSocketService } from '../app/web-socket.service';
+import { SessionComponent } from './session/session.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SessionComponent
   ],
   imports: [
     BrowserModule,
