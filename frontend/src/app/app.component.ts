@@ -9,11 +9,6 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = 'frontend';
 
-  constructor(private http: HttpClient) {
-    this.http.get('http://localhost:3000/formAPI/getData').subscribe(
-      (result) => {
-        console.log(result);
-      }
-    );
+  constructor() {
   }
 }
