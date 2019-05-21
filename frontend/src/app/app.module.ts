@@ -7,6 +7,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
 
 
+import { WebSocketService } from '../app/web-socket.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add th
     FormsModule, 
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    WebSocketService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

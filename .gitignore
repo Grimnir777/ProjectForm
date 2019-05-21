@@ -9,3 +9,6 @@ frontend/temp/
 
 #database
 database/dump
+
+#iOs default files
+.DS_Store
