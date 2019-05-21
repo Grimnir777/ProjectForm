@@ -9,6 +9,5 @@ export class WebSocketController {
             console.log('a user connected');
         });
     }
-
 }
 

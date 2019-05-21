@@ -7,7 +7,7 @@ class App {
 
     public app: express.Application;
     public formRoute: FormRoute = new FormRoute();
-    public db = "mongodb://localhost:27017/projetX";
+    public db = "mongodb://localhost:27017/projectForm";
     constructor() {
         this.app = express();
         this.config();
@@ -15,8 +15,7 @@ class App {
     }
 
     private config(): void {
-
-       // this.dbConnection();
+       this.dbConnection();
     }
 
     private dbConnection(): void {
