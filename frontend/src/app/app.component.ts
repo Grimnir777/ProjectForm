@@ -19,9 +19,6 @@ export class AppComponent {
 
     
 
-<<<<<<< HEAD
-  constructor() {
-=======
     /*
     this.http.get('http://localhost:3000/formAPI/getData').subscribe(
       (result) => {
@@ -55,6 +52,5 @@ export class AppComponent {
   }
   quitModule(module: number){
     this.webSocketService.quitModule(module);
->>>>>>> ac0681d2b63bf0ee1347dfb938bca02b086938ba
   }
 }

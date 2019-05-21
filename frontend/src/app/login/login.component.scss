@@ -81,6 +81,7 @@
     align-items: center;
     padding: 0 25px;
     border: none;
+    cursor: pointer;
 
 }
 
@@ -92,9 +93,9 @@
         margin: 10px;
         height: initial;
         flex-direction: column;
-        padding-bottom: 20px;
         .wrapDiv {
             width: 100%;
+            padding-bottom: 30px;
         }
         #imageDiv img {
             max-height: 100px;
@@ -109,6 +110,9 @@
         .loginButn { 
             width: 70%;
             height: 40px;
+        }
+        .changeTexte {
+            bottom: 5px;
         }
     }
 

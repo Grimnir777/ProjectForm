@@ -10,11 +10,11 @@
             <input class="loginButn" type="submit" value="Se connecter">
             <p class="changeTexte"  (click)="changePanel()">Créer un compte →</p>
         </form>
-      <form *ngIf="!connexion" class="wrapDiv">
+      <form #inscriptionForm="ngForm" *ngIf="!connexion" class="wrapDiv" (ngSubmit)="onSubmitInscription(inscriptionForm)">
           <p>Inscription</p>
-          <input class="input" type="text" name="email" placeholder="Email">
-          <input class="input" type="text" name="password" type="password" placeholder="Mot de passe">
-          <button class="loginButn"> S'inscrire </button>
+          <input [(ngModel)]="user.email" required class="input" type="text" name="email" placeholder="Email">
+          <input [(ngModel)]="user.password" required class="input" type="text" name="password" type="password" placeholder="Mot de passe">
+          <input class="loginButn" type="submit" value="S'inscrire">
           <p class="changeTexte" (click)="changePanel()">Se connecter →</p>
       </form>
   </div>
