@@ -5,26 +5,38 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <== add the imports!
-
-
 import { WebSocketService } from '../app/web-socket.service';
-import { SessionComponent } from './session/session.component'
+import { SessionComponent } from './session/session.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserService } from './Services/UserService/user.service';
+import { CreerQCMDashboardComponent } from './CreationQCMApp/creer-qcmdashboard/creer-qcmdashboard.component';
+import { AdminQCMDashboardComponent } from './administrationQCMApp/admin-qcmdashboard/admin-qcmdashboard.component';
+import { NotesQCMDashboardComponent } from './notesQCMApp/notes-qcmdashboard/notes-qcmdashboard.component';
+import { StatsDashboardComponent } from './statsApp/stats-dashboard/stats-dashboard.component';
+import { ParticipationQCMDashboardComponent } from './participationQCMApp/participation-qcmdashboard/participation-qcmdashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SessionComponent
+    SessionComponent,
+    DashboardComponent,
+    CreerQCMDashboardComponent,
+    AdminQCMDashboardComponent,
+    NotesQCMDashboardComponent,
+    StatsDashboardComponent,
+    ParticipationQCMDashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [
-    WebSocketService
+    WebSocketService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

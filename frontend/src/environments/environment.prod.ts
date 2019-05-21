@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  baseAPI: 'http://localhost:3000/',
+  userAPI: 'http://localhost:3000/' + 'userAPI/'
 };
