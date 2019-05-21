@@ -8,10 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class WebSocketService {
   socket :any;
-  readonly uri : string = 'localhost:3000';
+  readonly uri : string = 'localhost:3000/QCMs';
 
+  constructor() {}
 
-  constructor() {
+  initiateConnection(){
     this.socket = io(this.uri);
   }
 
@@ -26,6 +27,16 @@ export class WebSocketService {
   emit(eventName : string, data : any){
     this.socket.emit(eventName,data);
   };
+  openModule(moduleID: number){
+      this.socket.emit("openModule",moduleID);
+    }
+  joinModule(moduleID: number){
+    this.socket.emit("joinModule",moduleID);
+  }
+  
+  quitModule(moduleID: number){
+    this.socket.emit("quitModule",moduleID);
+  }
 
  
 }

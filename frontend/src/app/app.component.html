@@ -1,4 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<!--
 <div style="text-align:center">
   <h1>
     Welcome to Houria {{ title }}!
@@ -17,5 +17,32 @@
     <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
   </li>
 </ul>
+
+<router-outlet></router-outlet>
+-->
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Session actuelle {{ actualSession }}
+  </h1>
+  <h1>
+    Nombre utilisateurs connectés {{ NBStudentsOnline }}
+  </h1>
+</div>
+
+
+<button mat-button (click)="openModule(1)">Start Session 1</button>
+<button mat-button (click)="openModule(2)">Start Session 2</button>
+<button mat-button (click)="openModule(3)">Start Session 3</button>
+
+<button mat-button (click)="joinModule(1)">Join room 1 !</button>
+<button mat-button (click)="joinModule(2)">Join room 2 !</button>
+<button mat-button (click)="joinModule(3)">Join room 3 !</button>
+
+
+<button mat-button (click)="quitModule(1)">Quit room 1 !</button>
+<button mat-button (click)="quitModule(2)">Quit room 2 !</button>
+<button mat-button (click)="quitModule(3)">Quit room 3 !</button>
+
 
 <router-outlet></router-outlet>
