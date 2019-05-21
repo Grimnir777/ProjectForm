@@ -24,12 +24,19 @@ export class WebSocketService {
     });
   };
 
+  removeListener(eventName: string){
+    this.socket.removeAllListeners(eventName);
+  }
+
   emit(eventName : string, data : any){
     this.socket.emit(eventName,data);
   };
   openModule(moduleID: number){
-      this.socket.emit("openModule",moduleID);
-    }
+    this.socket.emit("openModule",moduleID);
+  }
+  closeModule(moduleID: number){
+    this.socket.emit("closeModule",moduleID);
+  }
   joinModule(moduleID: number){
     this.socket.emit("joinModule",moduleID);
   }
@@ -38,5 +45,16 @@ export class WebSocketService {
     this.socket.emit("quitModule",moduleID);
   }
 
+  sendNewQuestion(newQuestion){
+    this.socket.emit("newQuestion",newQuestion);
+  }
+
+  printResponseQuestion(questionID){
+    this.socket.emit("printResponseQuestion",questionID);
+  }
+
+  sendNewResponse(newResponse){
+    this.socket.emit("newResponse",newResponse);
+  }
  
 }

@@ -23,10 +23,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Session actuelle {{ actualSession }}
+    Type de session : {{ sessionType }}
   </h1>
-  <h1>
-    Nombre utilisateurs connectés {{ NBStudentsOnline }}
+  <h1 *ngIf="actualSession">
+    Session actuelle : {{ actualSession }}
+  </h1>
+  <h1 *ngIf="NBStudentsOnline">
+    Nombre utilisateurs connectés : {{ NBStudentsOnline }}
   </h1>
 </div>
 
@@ -34,6 +37,16 @@
 <button mat-button (click)="openModule(1)">Start Session 1</button>
 <button mat-button (click)="openModule(2)">Start Session 2</button>
 <button mat-button (click)="openModule(3)">Start Session 3</button>
+
+<button mat-button (click)="closeModule(1)">Stop Session 1</button>
+<button mat-button (click)="closeModule(2)">Stop Session 2</button>
+<button mat-button (click)="closeModule(3)">Stop Session 3</button>
+
+<button mat-button (click)="sendNewQuestion()">New question (PROF)</button>
+
+<button mat-button (click)="printResponseQuestion(1)">Print response question : session 1 (PROF)</button>
+
+<button mat-button (click)="sendNewResponse()">New Response (STUDENT)</button>
 
 <button mat-button (click)="joinModule(1)">Join room 1 !</button>
 <button mat-button (click)="joinModule(2)">Join room 2 !</button>
