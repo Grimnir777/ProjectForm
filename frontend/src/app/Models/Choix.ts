@@ -1,14 +1,13 @@
 
 export class Choix {
-    _id: string;
-    texteChoix: string;
-    isValid: boolean;
-
-    constructor(Choix?: any) {
-        if (Choix) {
-            this._id = Choix._id;
-            this.texteChoix = Choix.texteChoix;
-            this.isValid = Choix.isValid;
-        }
+  _id: string;
+  texteChoix: string;
+  isValid: boolean;
+  constructor(choix?: any) {
+    if (choix) {
+      this._id = choix._id;
+      this.texteChoix = choix.texteChoix;
+      this.isValid = choix.isValid;
     }
+  }
 }

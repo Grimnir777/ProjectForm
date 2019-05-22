@@ -1,3 +1,32 @@
 <div class="container">
-    <div class="wrap"></div>
-</div>
+  <div class="wrap">
+    <div>
+      <p style="text-align: center; margin-top: 5px; margin-bottom: 5px;">Formulaire</p>
+      <form [formGroup]="orderForm" (ngSubmit)="OnSubmit(orderForm.value)">
+        <input type="text" formControlName="nomQCM" placeholder="Nom du QCM">
+        <input type="text" formControlName="matiereQCM" placeholder="La matière du QCM">
+        <p>Status:</p>
+        <label class="ouvert">
+          <input type="checkbox" formControlName="ouvert">
+          <span class="slider"></span>
+        </label>
+        <div formArrayName="items" *ngFor="let item of items.controls; let i = index;">
+          <div [formGroupName]="i">
+            <div class="enteteQuestion">
+              <p>Question {{i}}</p>
+              <input type="text" formControlName="enonce" placeholder="enonce" />
+            </div>
+            <div class="listePossibilite">
+              <input type="text" formControlName="choix1" placeholder="choix 1" />
+              <input type="checkbox" formControlName="isValid1" />
+              <input type="text" formControlName="choix2" placeholder="choix 2" />
+              <input type="checkbox" formControlName="isValid2" />
+            </div>
+          </div>
+        </div>
+        <button type="submit">Save</button>
+        <button type="button" (click)="addItem()">Add Item</button>
+      </form>
+      <div>
+      </div>
+    </div>
