@@ -1,3 +1,10 @@
 <div class="container">
-  <div class="wrap"></div>
+  <div class="wrap">
+    <a class="qcm" *ngFor="let qcm of qcmsOpened">
+      <h2>{{qcm.nomQCM}}</h2>
+      <p>Matière : {{qcm.matiereQCM}}</p>
+      <p>Créé par : {{qcm.createurQCM}}</p>
+      <p>Nombre de questions : {{qcm.nbQuestionQCM}}</p>
+    </a>
+  </div>
 </div>

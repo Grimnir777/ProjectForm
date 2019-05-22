@@ -4,17 +4,22 @@ import cors from "cors";
 import mongoose from 'mongoose';
 import { FormRoute } from "./Routes/formRoute";
 import { UserRoute } from "./Routes/userRoute";
+import { QCMRoute } from './Routes/QCMRoute'
+
 class App {
 
     public app: express.Application;
     public formRoute: FormRoute = new FormRoute();
     public userRoute: UserRoute = new UserRoute();
+    public qcmRoute : QCMRoute = new QCMRoute();
+
     public db = "mongodb://localhost:27017/projectForm";
     constructor() {
         this.app = express();
         this.config();
         this.formRoute.routes(this.app);
         this.userRoute.routes(this.app);
+        this.qcmRoute.routes(this.app);
     }
 
     private config(): void {
