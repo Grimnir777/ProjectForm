@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Question } from 'src/app/Models/Question';
 import { QCM } from 'src/app/Models/QCM';
 import { UserService } from 'src/app/Services/UserService/user.service';
+import { QCMService } from 'src/app/Services/QCMService/qcm.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-creer-qcmdashboard',
@@ -11,7 +13,9 @@ import { UserService } from 'src/app/Services/UserService/user.service';
 })
 export class CreerQCMDashboardComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(private qcmService: QCMService, private router: Router,
+    private formBuilder: FormBuilder,
+    private userService: UserService) { }
 
   public orderForm: FormGroup;
   public qcm = new QCM();
@@ -32,7 +36,11 @@ export class CreerQCMDashboardComponent implements OnInit {
       choix1: '',
       isValid1: false,
       choix2: '',
-      isValid2: false
+      isValid2: false,
+      choix3: '',
+      isValid3: false,
+      choix4: '',
+      isValid4: false
     });
   }
 
@@ -53,17 +61,32 @@ export class CreerQCMDashboardComponent implements OnInit {
 
   public OnSubmit(formValue: any) {
     this.qcm.nomQCM = formValue.nomQCM;
-    this.qcm.nbQuestionQCM = formValue.items.length;
-    this.qcm.maxPointQCM = formValue.items.length;
+    this.qcm.matiereQCM = formValue.matiereQCM;
+    const itemsLength = formValue.items.length;
+    this.qcm.nbQuestionQCM = itemsLength;
+    this.qcm.maxPointQCM = itemsLength;
     this.qcm.createurQCM = this.userService.currentUser.nom;
-    for (let i = 0; i < formValue.items.length; i++) {
+    this.qcm.ouvert = formValue.ouvert;
+    for (let i = 0; i < itemsLength; i++) {
       this.convertItemToQuestion(formValue.items[i]);
     }
+    this.postQCM();
   }
 
   // Fonction de conversion d'un item à une question
   public convertItemToQuestion(item: any) {
     const q = new Question(item);
     this.qcm.listQuestions.push(q);
+  }
+  public postQCM() {
+    console.log(this.qcm);
+    this.qcmService.postQCM(this.qcm).subscribe(
+      (result) => {
+        this.router.navigate(['/dashboard']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

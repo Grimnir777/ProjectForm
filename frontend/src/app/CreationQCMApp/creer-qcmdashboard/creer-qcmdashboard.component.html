@@ -3,10 +3,10 @@
     <div>
       <p style="text-align: center; margin-top: 5px; margin-bottom: 5px;">Formulaire</p>
       <form [formGroup]="orderForm" (ngSubmit)="OnSubmit(orderForm.value)">
-       <div class="infoQCM">
-        <input type="text" formControlName="nomQCM" placeholder="Nom du QCM">
-        <input type="text" formControlName="matiereQCM" placeholder="Matière du QCM">
-       </div>
+        <div class="infoQCM">
+          <input type="text" formControlName="nomQCM" placeholder="Nom du QCM">
+          <input type="text" formControlName="matiereQCM" placeholder="Matière du QCM">
+        </div>
         <p>Status du QCM:</p>
         <label class="ouvert">
           <input type="checkbox" formControlName="ouvert">
@@ -23,11 +23,15 @@
               <input type="checkbox" formControlName="isValid1" />
               <input type="text" formControlName="choix2" placeholder="Choix 2" />
               <input type="checkbox" formControlName="isValid2" />
+              <input type="text" formControlName="choix3" placeholder="choix 3" />
+              <input type="checkbox" formControlName="isValid3" />
+              <input type="text" formControlName="choix4" placeholder="choix 4" />
+              <input type="checkbox" formControlName="isValid4" />
             </div>
           </div>
         </div>
-            <button type="submit">Save</button>
-            <button type="button" (click)="addItem()">Add Item</button>
+        <button type="submit">Save</button>
+        <button type="button" (click)="addItem()">Add Item</button>
       </form>
       <div>
       </div>

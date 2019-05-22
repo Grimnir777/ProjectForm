@@ -11,25 +11,30 @@ import { Observable } from 'rxjs';
 export class QCMService {
 
   private _getQCMSOpenedUrl = environment.qcmAPI + 'getQCMSOpenened';
-
-  public currentQCMS : Array<QCM> = [];
+  private _postQCMUrl = environment.qcmAPI + 'postQCM';
+  public currentQCMS: Array<QCM>;
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   public getQCMSOpened() {
-    return new Observable ((suscriber) => {
+    return new Observable((suscriber) => {
       this.http.get(this._getQCMSOpenedUrl).subscribe((qcmsFromAPI: Array<any>) => {
         this.currentQCMS = [];
-        for(let i = 0; i < qcmsFromAPI.length; i++) {
+        for (let i = 0; i < qcmsFromAPI.length; i++) {
           this.currentQCMS.push(new QCM(qcmsFromAPI[i]));
           console.log(this.currentQCMS[i]);
         }
-        suscriber.next(this.currentQCMS)
-     },
-     (err) => {
-       console.log(err);
-     })
+        suscriber.next(this.currentQCMS);
+      },
+        (err) => {
+          console.log(err);
+        });
     });
   }
+
+  public postQCM(Qcm: QCM) {
+    return this.http.post(this._postQCMUrl, Qcm);
+  }
+
 }

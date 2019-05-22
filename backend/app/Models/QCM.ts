@@ -7,12 +7,12 @@ var Question = QuestionSchema;
 
 
 export const QCMSchema = new Schema ({
-    nomQCM: { type: String, required: true},
-    matiereQCM: { type: String, required: true},
-    createurQCM: { type: String, required: true},
-    nbQuestionQCM: { type: Number, required: true},
-    maxPointQCM: { type: Number, required: true},
-    ouvert: { type: Boolean, required: true},
+    nomQCM: String,
+    matiereQCM: String,
+    createurQCM: String,
+    nbQuestionQCM: Number,
+    maxPointQCM: Number,
+    ouvert: Boolean,
     listQuestions: [Question]
 });
 
