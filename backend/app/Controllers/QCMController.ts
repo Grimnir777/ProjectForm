@@ -6,7 +6,6 @@ export class QCMController {
     public async getQCMSOpenened(req: Request, res: Response) {
         try {
             let qcms = await QCM.find({'ouvert':true});
-            console.log(qcms)
             if (qcms) {
                 res.status(200).send(qcms);
             }

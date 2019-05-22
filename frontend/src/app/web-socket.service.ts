@@ -30,19 +30,30 @@ export class WebSocketService {
 
   emit(eventName : string, data : any){
     this.socket.emit(eventName,data);
-  };
-  openModule(moduleID: number){
+  }
+
+  openModule(moduleID: string){
     this.socket.emit("openModule",moduleID);
   }
-  closeModule(moduleID: number){
+
+  closeModule(moduleID: string){
     this.socket.emit("closeModule",moduleID);
   }
-  joinModule(moduleID: number){
+
+  joinModule(moduleID: string){
     this.socket.emit("joinModule",moduleID);
   }
-  
-  quitModule(moduleID: number){
+
+  quitModule(moduleID: string){
     this.socket.emit("quitModule",moduleID);
+  }
+
+  startSession(moduleID: string){
+    this.socket.emit("startSession",moduleID);
+  }
+
+  stopSession(moduleID: string){
+    this.socket.emit("stopSession",moduleID);
   }
 
   sendNewQuestion(newQuestion){

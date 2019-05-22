@@ -5,83 +5,90 @@ const io = require('socket.io')(http);
 
 const PORT = 3000;
 var listModules = [1,2,3,4,5,6];
-var openedChannels = [];
+var openedChannels = {};
 var nsp = io.of("/QCMs");
 nsp.on("connection", (socket) => {
+  socket.emit('connected', "");
 
   socket.on("openModule", module=>{
+    module = module.toString();
+
     let newModule = {
-      moduleID : module,
       nbStudents : 0,
       responsable : socket.id,
       students : []
     }
-    openedChannels.push(newModule);
+    openedChannels[module] = newModule;
     console.log("NEW MODULE");
-    console.log("module ID : " + newModule.moduleID);
+    console.log("module ID : " + module);
     console.log("resonsable ID : " + newModule.responsable);
 
     socket.join(module);
   });
 
   socket.on("closeModule", module=>{
-    let index = openedChannels.findIndex(function(element){
-      return element.moduleID == module;
-    });
-    openedChannels.splice(index,1);
+    module = module.toString();
+    delete openedChannels[module];
     socket.leave(module);
     console.log("closed module  : ");
   });
 
   socket.on("joinModule", module => {
+    module = module.toString();
     console.log("Joining module...: " + module);
     //if (listModules.includes(module)) {
     socket.join(module);
 
-    let index = openedChannels.findIndex(function(element){
-      return element.moduleID == module;
-    });
-    openedChannels[index].nbStudents++;
-    openedChannels[index].students.push(socket.id);
+    
+    openedChannels[module].nbStudents++;
+    openedChannels[module].students.push(socket.id);
 
-    console.log(openedChannels[index].students);
+    console.log(openedChannels[module].students);
 
-    console.log("New User Connected on " + module + " NBStudentsOnline : " + openedChannels[index].nbStudents);
+    console.log("New User Connected on " + module + " NBStudentsOnline : " + openedChannels[module].nbStudents);
 
-    nsp.to(module).emit("NBStudentsOnline",openedChannels[index].nbStudents);
+    nsp.to(module).emit("NBStudentsOnline",openedChannels[module].nbStudents);
 
      // return io.emit("success", "Valid module Name: " + module);
    // } else {
      //return io.emit("err", "Invalid module Name: " + module);
     //}
   });
+
+
   
   socket.on("quitModule", module => {
+    module = module.toString();
     console.log("Quit module...: " + module);
 
-    let index = openedChannels.findIndex(function(element){
-      return element.moduleID == module;
-    });
 
-    let indexStudent = openedChannels[index].students.findIndex(function(element){
+    let indexStudent = openedChannels[module].students.findIndex(function(element){
       return element == socket.id;
     });
 
-    openedChannels[index].nbStudents--;
-    openedChannels[index].students.splice(indexStudent,1);
-    console.log(openedChannels[index].students);
+    openedChannels[module].nbStudents--;
+    openedChannels[module].students.splice(indexStudent,1);
+    console.log(openedChannels[module].students);
     
     
-    console.log("User deconnected on " + module + " NBStudentsOnline : " + openedChannels[index].nbStudents);
-    nsp.to(module).emit("NBStudentsOnline",openedChannels[index].nbStudents);
+    console.log("User deconnected on " + module + " NBStudentsOnline : " + openedChannels[module].nbStudents);
+    nsp.to(module).emit("NBStudentsOnline",openedChannels[module].nbStudents);
 
     socket.leave(module);
 
     //Stil present in module
     io.of('/QCMs').in(module).clients((error, clients) => {
       if (error) throw error;
-      console.log(clients); // => [PZDoMHjiu8PYfRiKAAAF, Anw2LatarvGVVXEIAAAD]
+      console.log(clients);
     });
+  });
+
+  socket.on("startSession", (module) =>{
+    nsp.to(module).emit("startSession","");
+  });
+
+  socket.on("stopSession", (module) =>{
+    nsp.to(module).emit("stopSession","");
   });
 
 
@@ -101,12 +108,10 @@ nsp.on("connection", (socket) => {
 
   //Envoi d'une réponse au créateur
   socket.on("newResponse", (response,module) => {
+    module = module.toString();
     console.log("Infos about response : ");
     console.log(response);
-    let index = openedChannels.findIndex(function(element){
-      return element.moduleID == module;
-    });
-    nsp.clients[openedChannels[index].responsable].send("newResponse",response);
+    nsp.clients[openedChannels[module].responsable].send("newResponse",response);
   });
 
 /*

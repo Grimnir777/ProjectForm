@@ -12,7 +12,7 @@ import { UserService } from './Services/UserService/user.service';
 export class AppComponent {
   title = 'frontend';
   NBStudentsOnline: any;
-  actualSession: number;
+  actualSession: string;
   sessionType: string;
 
   constructor(private userService: UserService, private http: HttpClient, private webSocketService: WebSocketService) {
@@ -27,7 +27,7 @@ export class AppComponent {
       }
     );*/
   }
-  openModule(module: number) {
+  openModule(module: string) {
     this.webSocketService.initiateConnection();
     this.webSocketService.openModule(module);
     this.sessionType = 'Session prof';
@@ -41,7 +41,7 @@ export class AppComponent {
     });
   }
 
-  closeModule(module: number) {
+  closeModule(module: string) {
     this.webSocketService.closeModule(module);
     this.webSocketService.removeListener('NBStudentsOnline');
     this.sessionType = 'Pas de session en cours';
@@ -49,7 +49,7 @@ export class AppComponent {
     this.NBStudentsOnline = undefined;
   }
 
-  joinModule(module: number) {
+  joinModule(module: string) {
     this.webSocketService.initiateConnection();
     this.webSocketService.joinModule(module);
     this.webSocketService.listen('NBStudentsOnline').subscribe((nbStudents) => {
@@ -66,7 +66,7 @@ export class AppComponent {
     this.sessionType = 'Session etudiant';
     this.actualSession = module;
   }
-  quitModule(module: number) {
+  quitModule(module: string) {
     this.webSocketService.quitModule(module);
     this.webSocketService.removeListener('NBStudentsOnline');
     this.sessionType = 'Pas de session en cours';

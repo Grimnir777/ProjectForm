@@ -12,15 +12,20 @@ export class QCMService {
 
   private _getQCMSOpenedUrl = environment.qcmAPI + 'getQCMSOpenened';
 
-  public currentQCMS : Array<QCM>;
+  public currentQCMS : Array<QCM> = [];
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   public getQCMSOpened() {
     return new Observable ((suscriber) => {
-      this.http.get(this._getQCMSOpenedUrl).subscribe((qcmsFromAPI) => {
-        suscriber.next(qcmsFromAPI);
+      this.http.get(this._getQCMSOpenedUrl).subscribe((qcmsFromAPI: Array<any>) => {
+        this.currentQCMS = [];
+        for(let i = 0; i < qcmsFromAPI.length; i++) {
+          this.currentQCMS.push(new QCM(qcmsFromAPI[i]));
+          console.log(this.currentQCMS[i]);
+        }
+        suscriber.next(this.currentQCMS)
      },
      (err) => {
        console.log(err);

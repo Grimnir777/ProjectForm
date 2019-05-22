@@ -1,10 +1,25 @@
 <div class="container">
+  <!-- <div class="notification">
+      <div class="content">
+        <div class="identifier"></div>
+        <div class="text">Connecté</div>
+      </div>
+    </div> -->
   <div class="wrap">
-    <a class="qcm" *ngFor="let qcm of qcmsOpened">
-      <h2>{{qcm.nomQCM}}</h2>
-      <p>Matière : {{qcm.matiereQCM}}</p>
-      <p>Créé par : {{qcm.createurQCM}}</p>
-      <p>Nombre de questions : {{qcm.nbQuestionQCM}}</p>
-    </a>
+    <ng-container *ngIf="showPanel">
+      <ng-container *ngFor="let qcm of qcmsOpened">
+        <a class="qcm" (click)="selectQCM(qcm)">
+            <h2>{{qcm.nomQCM}}</h2>
+            <p>Matière : {{qcm.matiereQCM}}</p>
+            <p>Créé par : {{qcm.createurQCM}}</p>
+            <p>Nombre de questions : {{qcm.nbQuestionQCM}}</p>
+        </a>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!showPanel">
+      <app-session [actualQCM]="currentQCM" [wss]="wss"></app-session>
+    </ng-container>
   </div>
 </div>
+
+

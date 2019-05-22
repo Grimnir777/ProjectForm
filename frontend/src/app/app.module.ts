@@ -10,7 +10,6 @@ import { SessionComponent } from './session/session.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserService } from './Services/UserService/user.service';
 import { CreerQCMDashboardComponent } from './CreationQCMApp/creer-qcmdashboard/creer-qcmdashboard.component';
-import { AdminQCMDashboardComponent } from './administrationQCMApp/admin-qcmdashboard/admin-qcmdashboard.component';
 import { NotesQCMDashboardComponent } from './notesQCMApp/notes-qcmdashboard/notes-qcmdashboard.component';
 import { StatsDashboardComponent } from './statsApp/stats-dashboard/stats-dashboard.component';
 import { ParticipationQCMDashboardComponent } from './participationQCMApp/participation-qcmdashboard/participation-qcmdashboard.component';
@@ -22,7 +21,6 @@ import { ParticipationQCMDashboardComponent } from './participationQCMApp/partic
     SessionComponent,
     DashboardComponent,
     CreerQCMDashboardComponent,
-    AdminQCMDashboardComponent,
     NotesQCMDashboardComponent,
     StatsDashboardComponent,
     ParticipationQCMDashboardComponent

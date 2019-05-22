@@ -1,21 +1,34 @@
 <div class="container">
   <div class="wrap">
-    <div *ngIf="sessionOpened">
-      <div class="header">
-        <h1>{{actualQCM.nomQCM}}</h1>
-        <h2>{{actualQCM.matiereQCM}}</h2>
-      </div>
-      <div class="questions">
-        <div class="question" *ngFor="let q of actualQCM.listQuestions">
-          <h3 class="questionTitle">{{q.enonce}}</h3>
-          <div class="choices" *ngFor="let ch of q.listChoix">
-            <p class="choice">{{ch.texteChoix}}</p>
-          </div>
+    <div class="header">
+      <h1>Nombre étudiants connectés : {{NBStudentsOnline}}</h1>
+      <h1>{{actualQCM.nomQCM}}</h1>
+      <h2>{{actualQCM.matiereQCM}}</h2>
+    </div>
+
+    <!-- A remplacer par un form -->
+    <!-- <div class="questions" *ngIf="sessionStarted">
+      <div class="question" *ngFor="let q of actualQCM.listQuestions">
+        <h3 class="questionTitle">{{q.enonce}}</h3>
+        <div class="choices" *ngFor="let ch of q.listChoix" >
+          <p class="choice">{{ch.texteChoix}}</p>
         </div>
       </div>
-    </div>
-    <div *ngIf="isTeacher">
-      <p>Démarrer session</p>
-    </div>
+    </div> -->
+
+    <form #questionForm="ngForm" *ngIf="sessionStarted" class="wrapDiv"
+    (ngSubmit)="onQuestionSent(questionForm)">
+      <input [(ngModel)]="c.isValid" *ngFor="let c of actualQuestion.listChoix" type="checkbox" placeholder="c.isValid"> 
+      <input class="sendBtn" type="submit" value="Valider">
+    </form>
+
+
+  </div>
+  <p *ngIf="sessionStoped">Session terminée</p>
+  <p *ngIf="sessionStarted">Session démarrée</p>
+  <div *ngIf="isTeacher">
+    <a (click)="newQuestion()" >Nouvelle question</a>
+    <a (click)="startSession()" *ngIf="!sessionStarted">Démarrer la session</a>
+    <a (click)="stopSession()" *ngIf="sessionStarted">Fermer la session</a>
   </div>
 </div>

@@ -45,6 +45,10 @@ export class UserService {
     return !!localStorage.getItem('currentUser');
   }
 
+  getUserRole(){
+    return JSON.parse(localStorage.getItem('currentUser'))['role'];
+  }
+
   initUser() {
     this.currentUser = new User(JSON.parse(localStorage.getItem('currentUser')));
     console.log('user from localstorage : ', this.currentUser);
