@@ -108,4 +108,17 @@ export class QCMController {
             return;
         }
     }
+
+    public async getQCMByUser(req: Request, res: Response) {
+        try {
+            const listQCMFinded = await ReponseEleve.find({'mail': req.body.mail});
+            if (listQCMFinded) {
+                res.status(200).send(listQCMFinded);
+            }
+        }
+        catch (err) {
+            res.status(400).send(err);
+            return;
+        }
+    }
 }

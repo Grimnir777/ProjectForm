@@ -8,5 +8,7 @@ export class QCMRoute {
         app.route('/qcmAPI/updateAnswerQCM').post(this.qcmController.updateAnswerQCM);
         app.route('/qcmAPI/openQCM').post(this.qcmController.openQCM);
         app.route('/qcmAPI/shutDownQCM').post(this.qcmController.shutDownQCM);
+        app.route('/qcmAPI/getQCMByUser').post(this.qcmController.getQCMByUser);
+
     }
 }

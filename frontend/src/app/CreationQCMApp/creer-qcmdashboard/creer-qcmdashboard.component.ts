@@ -25,7 +25,7 @@ export class CreerQCMDashboardComponent implements OnInit {
       nomQCM: '',
       matiereQCM: '',
       createurQCM: '',
-      ouvert: true,
+      ouvert: false,
       items: this.formBuilder.array([this.createItem()])
     });
   }
@@ -66,7 +66,7 @@ export class CreerQCMDashboardComponent implements OnInit {
     this.qcm.nbQuestionQCM = itemsLength;
     this.qcm.maxPointQCM = itemsLength;
     this.qcm.createurQCM = this.userService.currentUser.nom;
-    this.qcm.ouvert = formValue.ouvert;
+    this.qcm.ouvert = false;
     for (let i = 0; i < itemsLength; i++) {
       this.convertItemToQuestion(formValue.items[i]);
     }

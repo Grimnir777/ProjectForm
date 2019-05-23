@@ -52,6 +52,7 @@
 }
 
 #participerQCM {
+  background-color: rgb(77,207,194);
   background-image: url('../../assets/participerQCM.svg');
 }
 
@@ -67,4 +68,9 @@
 .statsQCM {
   background-color: rgb(77,207,194);
   background-image: url('../../assets/stats.svg');
+}
+
+#notesQCM {
+  background-color: rgb(255,202,79);
+  background-image: url('../../assets/consulterMesNotes.svg');
 }

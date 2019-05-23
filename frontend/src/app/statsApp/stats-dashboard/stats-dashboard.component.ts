@@ -2,6 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import { UserService } from 'src/app/Services/UserService/user.service';
+import { QCMService } from 'src/app/Services/QCMService/qcm.service';
 
 @Component({
   selector: 'app-stats-dashboard',
@@ -72,9 +74,16 @@ export class StatsDashboardComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
-
+  public listQCM: any;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
-  constructor() { }
+  constructor(private userService: UserService, private qcmService: QCMService) { 
+    this.qcmService.getQCMByUser(userService.currentUser.mail).subscribe(
+      (listQCMFromAPI) => {
+        this.listQCM = listQCMFromAPI;
+        console.log('listQCMFrom API ', this.listQCM);
+      }
+    )
+  }
 
   ngOnInit() {
   }

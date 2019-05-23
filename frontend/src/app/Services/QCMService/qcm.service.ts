@@ -18,6 +18,7 @@ export class QCMService {
   private _updateAnswerQCMUrl = environment.qcmAPI + 'updateAnswerQCM';
   private _shutDownQCMUrl = environment.qcmAPI + 'shutDownQCM';
   private _openQCMUrl = environment.qcmAPI + 'openQCM';
+  private _getQCMByUserUrl = environment.qcmAPI + 'getQCMByUser';
   public currentQCMS: Array<QCM>;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -78,5 +79,9 @@ export class QCMService {
         console.log('hey it works');
       }
     );
+  }
+
+  public getQCMByUser(mail) {
+    return this.http.post(this._getQCMByUserUrl, {mail});
   }
 }

@@ -1,6 +1,7 @@
 <div class="container">
   <div class="wrap">
       <div class="flex">
+          <ng-container *ngIf="userService.currentUser.role === 'eleve'">
           <div class="flex-item" id="stat">
             <div style="display: block;">
             <canvas baseChart width="470" height="350"
@@ -15,6 +16,7 @@
                         (chartClick)="chartClicked($event)"></canvas>
             </div>
           </div>
+        </ng-container>
           <!-- <div class="flex-item">
             
             <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>

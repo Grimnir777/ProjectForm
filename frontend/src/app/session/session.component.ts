@@ -191,7 +191,7 @@ export class SessionComponent implements OnInit, OnDestroy {
         listChoix: currentQuestion.listChoix,
         nomEleve: this.us.currentUser.nom,
         pointQuestion: currentQuestion.pointQuestion,
-        nbReponseValidQuestion: currentQuestion.nbReponseValidQuestion
+        nbReponseValidQuestion: this.actualQCM.listQuestions[this.questionPos].nbReponseValidQuestion
       };
       this.wss.sendNewResponse(responseToSend, this.actualQCM._id, this.questionPos);
     } else {
