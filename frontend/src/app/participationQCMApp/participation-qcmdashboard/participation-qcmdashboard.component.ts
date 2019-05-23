@@ -14,28 +14,20 @@ export class ParticipationQCMDashboardComponent implements OnInit, OnDestroy {
   private allQCMS: any;
   public currentQCM: QCM;
   public isTeacher: boolean;
-  public sessionOpened: boolean;
   public showPanel = true;
 
   constructor(private qcmService: QCMService, private wss: WebSocketService, private router: Router, private us : UserService) {
-    this.sessionOpened = false;
+
     this.qcmService.getQCMS(this.us.currentUser).subscribe((qcms) => {
       this.allQCMS = qcms;
     });
     this.wss.initiateConnection();
-    this.wss.listen('connected').subscribe(() => {
-      this.sessionOpened = true;
-      console.log('connected to socket IO ! :D');
-    });
   }
 
   ngOnInit() {
-
   }
 
   ngOnDestroy() {
-    // TODO déconnexion socket
-    console.log('deconnexion du socket !');
   }
 
   selectQCM(selectedQCM) {

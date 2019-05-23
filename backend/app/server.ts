@@ -84,10 +84,8 @@ nsp.on("connection", (socket) => {
   });
 
   //Affichage bonnes réponses question
-  socket.on("printResponseQuestion", questionID => {
-    //console.log("Ask for print response for : ");
-    //console.log(questionID);
-    socket.broadcast.emit("printResponseQuestion",  questionID);
+  socket.on("printResponseQuestion", () => {
+    socket.broadcast.emit("printResponseQuestion",);
   });
 
   //Envoi d'une réponse au professeur

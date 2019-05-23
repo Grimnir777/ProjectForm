@@ -19,6 +19,8 @@ export class SessionComponent implements OnInit, OnDestroy {
 
   NBStudentsOnline: any;
   isTeacher: boolean;
+  showResponse: boolean;
+  waitingForResponse : boolean;
   sessionStarted: boolean;
   sessionStoped: boolean;
   actualQuestion: Question;
@@ -38,7 +40,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sessionStarted = false;
     this.sessionStoped = false;
-
+    this.showResponse=false;
     this.isTeacher = this.us.getUserRole() === 'eleve' ? false : true;
 
     if (this.isTeacher) {
@@ -52,7 +54,6 @@ export class SessionComponent implements OnInit, OnDestroy {
         if (!this.listAnswerEleve[result.questionPos]) {
           this.listAnswerEleve[result.questionPos] = [];
         }
-        console.log('before failure ',  result.response);
         let goodResponse = false;
         let counterGoodResponse = 0;
         const listChoix = result.response.listChoix;
@@ -80,7 +81,6 @@ export class SessionComponent implements OnInit, OnDestroy {
 
       this.wss.listen('startSession').subscribe(() => {
         this.sessionStarted = true;
-        this.newQuestion();
         console.log('session started');
       });
 
@@ -111,24 +111,35 @@ export class SessionComponent implements OnInit, OnDestroy {
       });
 
       this.wss.listen('newQuestion').subscribe((question) => {
-        this.actualQuestion = new Question(question);
-        console.log('enter newquestion');
-        console.log(this.actualQuestion);
+        if(question == null){
+          this.router.navigate(['/dashboard']);
+        }
+        else{
+          this.actualQuestion = new Question(question);
+        }
+        this.clearCheckbox();
+        
+        this.showResponse=false;
+        //console.log('enter newquestion');
+        //console.log(this.actualQuestion);
         // Envoyer l'info de leleve au prof avec newReponse ensuite !
       });
 
-      this.wss.listen('printResponseQuestion').subscribe((responseQuestion) => {
-        console.log(responseQuestion);
+      this.wss.listen('printResponseQuestion').subscribe(() => {
+        this.waitingForResponse = false;
+        this.showResponse=true;
       });
     }
     this.wss.listen('userConnected').subscribe((studentName)=>{
       //alert('user connected : ' + studentName);
-      console.log('user connected : ' + studentName);
+      document.getElementById('notificationBar').innerHTML += '<div>Nouvel utilisateur connecté : ' + studentName +'</div>'
+      //console.log('user connected : ' + studentName);
     })
 
     this.wss.listen('userDeconnected').subscribe((studentName)=>{
       //alert('user deconnected : ' + studentName);
-      console.log('user deconnected : ' + studentName);
+      document.getElementById('notificationBar').innerHTML += '<div>Nouvel utilisateur déconnecté : ' + studentName +'</div>'
+      //console.log('user deconnected : ' + studentName);
     })
   }
 
@@ -144,7 +155,7 @@ export class SessionComponent implements OnInit, OnDestroy {
 
   startSession() {
     this.questionPos = 0;
-    this.newQuestion();
+    this.wss.sendNewQuestion(this.actualQCM.listQuestions[this.questionPos]);
     this.wss.startSession(this.actualQCM._id);
     this.sessionStarted = true;
   }
@@ -212,19 +223,24 @@ export class SessionComponent implements OnInit, OnDestroy {
       currentQuestion['nomEleve'] = this.us.currentUser.nom;
       this.wss.sendNewResponse(currentQuestion, this.actualQCM._id, this.questionPos);
     }
-    this.questionPos++;
-    if (this.questionPos === this.actualQCM.nbQuestionQCM) {
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.newQuestion();
-    }
+    this.waitingForResponse = true;
   }
 
   newQuestion() {
     this.clearCheckbox();
-    console.log('enter new question: ', this.actualQCM.listQuestions[this.questionPos]);
-    // this.wss.sendNewQuestion(this.actualQCM.listQuestions[this.questionPos]);
-    this.actualQuestion = this.actualQCM.listQuestions[this.questionPos];
+    this.questionPos++;
+    if (this.questionPos === this.actualQCM.nbQuestionQCM) {
+      this.wss.sendNewQuestion(null);
+      //this.router.navigate(['/dashboard']);
+    } else {
+      this.wss.sendNewQuestion(this.actualQCM.listQuestions[this.questionPos]);
+    }
+    //console.log('enter new question: ', this.actualQCM.listQuestions[this.questionPos]);
+
+  }
+
+  showResponses(){
+    this.wss.printResponseQuestion();
   }
 
   clearCheckbox() {

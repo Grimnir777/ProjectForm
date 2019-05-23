@@ -1,5 +1,5 @@
 <div class="container">
-  
+  <div id="notificationBar"></div>
   <div class="header">
     <h1>Nombre étudiants connectés : {{NBStudentsOnline}}</h1>
     <h1>{{actualQCM.nomQCM}}</h1>
@@ -10,7 +10,7 @@
   <p *ngIf="sessionStarted" class="sessionInfo">Session en cours</p>
 
   <div id="panelTeacher" *ngIf="isTeacher">
-
+    <a (click)="showResponses()">Afficher réponse question actuelle</a>
     <a (click)="newQuestion()">Nouvelle question</a>
     <a (click)="startSession()" *ngIf="!sessionStarted">Démarrer la session</a>
     <a (click)="stopSession()" *ngIf="sessionStarted">Fermer la session</a>
@@ -41,27 +41,48 @@
   
   <div id="formDivQuestion" *ngIf="sessionStarted && !isTeacher">
     <form #questionForm="ngForm" id="formDiv" (ngSubmit)="onQuestionSent(questionForm)">
+      <p *ngIf="waitingForResponse">Attente de l'envoi de la réponse par le professeur</p>
       <p class="questionEnonce">{{actualQuestion.enonce}}</p>
-      <div class="listChoixStyle student">
-        <p [class.activeP]="cbResult1"><span
-            [class.activeSpan]="cbResult1">A</span>{{actualQuestion.listChoix[0].texteChoix}}</p>
-        <input [(ngModel)]="cbResult1" name="cb1" type="checkbox">
+
+
+      <div *ngIf="!showResponse">
+        <div class="listChoixStyle student">
+          <p [class.activeP]="cbResult1"><span
+              [class.activeSpan]="cbResult1">A</span>{{actualQuestion.listChoix[0].texteChoix}}</p>
+          <input [(ngModel)]="cbResult1" name="cb1" type="checkbox">
+        </div>
+        <div class="listChoixStyle student">
+          <p [class.activeP]="cbResult2"><span
+              [class.activeSpan]="cbResult2">B</span>{{actualQuestion.listChoix[1].texteChoix}}</p>
+          <input [(ngModel)]="cbResult2" name="cb2" type="checkbox">
+        </div>
+        <div class="listChoixStyle student">
+          <p [class.activeP]="cbResult3"><span
+              [class.activeSpan]="cbResult3">C</span>{{actualQuestion.listChoix[2].texteChoix}}</p>
+          <input [(ngModel)]="cbResult3" name="cb3" type="checkbox">
+        </div>
+        <div class="listChoixStyle student">
+          <p [class.activeP]="cbResult4"><span
+              [class.activeSpan]="cbResult4">D</span>{{actualQuestion.listChoix[3].texteChoix}}</p>
+          <input [(ngModel)]="cbResult4" name="cb4" type="checkbox">
+        </div>
       </div>
-      <div class="listChoixStyle student">
-        <p [class.activeP]="cbResult2"><span
-            [class.activeSpan]="cbResult2">B</span>{{actualQuestion.listChoix[1].texteChoix}}</p>
-        <input [(ngModel)]="cbResult2" name="cb2" type="checkbox">
-      </div>
-      <div class="listChoixStyle student">
-        <p [class.activeP]="cbResult3"><span
-            [class.activeSpan]="cbResult3">C</span>{{actualQuestion.listChoix[2].texteChoix}}</p>
-        <input [(ngModel)]="cbResult3" name="cb3" type="checkbox">
-      </div>
-      <div class="listChoixStyle student">
-        <p [class.activeP]="cbResult4"><span
-            [class.activeSpan]="cbResult4">D</span>{{actualQuestion.listChoix[3].texteChoix}}</p>
-        <input [(ngModel)]="cbResult4" name="cb4" type="checkbox">
-      </div>
+
+      <div *ngIf="showResponse">
+          <div class="listChoixStyle student">
+            <p [class.trueP]="actualQuestion.listChoix[0].isValid"><span>A</span>{{actualQuestion.listChoix[0].texteChoix}}</p>
+          </div>
+          <div class="listChoixStyle student">
+            <p [class.trueP]="actualQuestion.listChoix[1].isValid"><span>B</span>{{actualQuestion.listChoix[1].texteChoix}}</p>
+          </div>
+          <div class="listChoixStyle student">
+            <p [class.trueP]="actualQuestion.listChoix[2].isValid"><span>C</span>{{actualQuestion.listChoix[2].texteChoix}}</p>
+          </div>
+          <div class="listChoixStyle student">
+            <p [class.trueP]="actualQuestion.listChoix[3].isValid"><span>D</span>{{actualQuestion.listChoix[3].texteChoix}}</p>
+          </div>
+        </div>
+
 
       <input class="sendBtn" type="submit" value="Valider">
     </form>
