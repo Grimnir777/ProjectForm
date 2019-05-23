@@ -25,7 +25,7 @@ export class CreerQCMDashboardComponent implements OnInit {
       nomQCM: '',
       matiereQCM: '',
       createurQCM: '',
-      ouvert: false,
+      ouvert: true,
       items: this.formBuilder.array([this.createItem()])
     });
   }

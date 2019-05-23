@@ -1,11 +1,15 @@
 .wrap{
+  width: 100%;
+  max-width: 780px;
+  height: 85%;
+  max-height: 678px;
   background: white;
-  border-radius: 20px;
+  border-radius: 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  position: relative;
 }
 
 input {
@@ -14,6 +18,13 @@ input {
   font-weight: bold;
 }
 
+input[type=text] {
+  border: none;
+  border-bottom: 2px solid black;
+}
+input[type=text]::placeholder {
+  color: rgb(27, 24, 24);
+}
 #formControl {
   display: flex;
   justify-content: center;
@@ -22,15 +33,31 @@ input {
   margin: 0 auto;
 }
 
-.enteteQuestion , .listePossibilite, .infoQCM {
+.enteteQuestion , .listePossibilite {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 5px;
   margin-bottom: 5px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
+  width: 100%;
+}
+
+.listePossibilite {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.infoQCM {
+  display: flex;
+  justify-content: space-around;
+  width: 400px;
+  padding-top: 25px;
+  margin-bottom: 5px;
+  margin: 0 auto;
+}
+
+.listePossibilite input[type=text] {
+  width: calc(100% / 5);
+  height: 20px;
 }
 
 .enteteQuestion {
@@ -46,8 +73,8 @@ input {
 .ouvert {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 47px;
+  height: 24px;
 }
 
 /* Hide default HTML checkbox */
@@ -94,8 +121,8 @@ input {
   position: absolute;
   content: "";
   border-radius: 50%;
-  height: 26px;
-  width: 26px;
+  height: 16px;
+  width: 16px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -112,7 +139,94 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+  transform: translateX(24px);
+}
+
+#titleCreate {
+  color: orange;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+form {
+  width: 100%;
+  max-height: calc(100% - 100px);
+  overflow-y: auto;
+}
+
+#statusQCMDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#statusQCMDiv p {
+  color: orange;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+#statusQCMDiv > * {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.btnForm {
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  background: #57b846;
+  color: white;
+}
+
+#saveQuestion {
+  position: absolute;
+  bottom: 10px;
+  left:0;
+  right:0;
+  text-align: center;
+  width: 125px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#btnQuestionDiv {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#btnQuestion {
+  margin: 0 auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 10px;
+
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 10px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  border-radius: 10px;
+
 }
