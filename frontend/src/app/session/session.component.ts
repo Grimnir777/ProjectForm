@@ -24,13 +24,14 @@ export class SessionComponent implements OnInit, OnDestroy {
   actualQuestion: Question;
   sessionID = 0;
   testBool = true;
-  cb1Result = false;
-  cb2Result = false;
-  cb3Result = false;
-  cb4Result = false;
+  cbResult1 = false;
+  cbResult2 = false;
+  cbResult3 = false;
+  cbResult4 = false;
   questionPos = 0;
   currentListQuestion: Array<Question> = [];
   listAnswerEleve: Array<Array<any>> = [];
+  prefixResponse : Array<string> = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
   constructor(private router: Router, private us: UserService, private qcmService: QCMService) {
   }
 
@@ -155,16 +156,16 @@ export class SessionComponent implements OnInit, OnDestroy {
     const isValid3 = question.listChoix[2].isValid;
     const isValid4 = question.listChoix[3].isValid;
     question.listChoix = [];
-    if (this.cb1Result) {
+    if (this.cbResult1) {
       question.listChoix.push(new Choix({ texteChoix: texteChoix1, isValid: isValid1 }));
     }
-    if (this.cb2Result) {
+    if (this.cbResult2) {
       question.listChoix.push(new Choix({ texteChoix: texteChoix2, isValid: isValid2 }));
     }
-    if (this.cb3Result) {
+    if (this.cbResult3) {
       question.listChoix.push(new Choix({ texteChoix: texteChoix3, isValid: isValid3 }));
     }
-    if (this.cb4Result) {
+    if (this.cbResult4) {
       question.listChoix.push(new Choix({ texteChoix: texteChoix4, isValid: isValid4 }));
     }
     return question;
@@ -216,6 +217,6 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   clearCheckbox() {
-    this.cb1Result = this.cb2Result = this.cb3Result = this.cb4Result = false;
+    this.cbResult1 = this.cbResult2 = this.cbResult3 = this.cbResult4 = false;
   }
 }
