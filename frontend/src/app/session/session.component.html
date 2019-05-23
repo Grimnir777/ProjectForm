@@ -69,22 +69,22 @@
       </div>
 
       <div *ngIf="showResponse">
-          <div class="listChoixStyle student">
-            <p [class.trueP]="actualQuestion.listChoix[0].isValid"><span>A</span>{{actualQuestion.listChoix[0].texteChoix}}</p>
-          </div>
-          <div class="listChoixStyle student">
-            <p [class.trueP]="actualQuestion.listChoix[1].isValid"><span>B</span>{{actualQuestion.listChoix[1].texteChoix}}</p>
-          </div>
-          <div class="listChoixStyle student">
-            <p [class.trueP]="actualQuestion.listChoix[2].isValid"><span>C</span>{{actualQuestion.listChoix[2].texteChoix}}</p>
-          </div>
-          <div class="listChoixStyle student">
-            <p [class.trueP]="actualQuestion.listChoix[3].isValid"><span>D</span>{{actualQuestion.listChoix[3].texteChoix}}</p>
-          </div>
+        <div class="listChoixStyle student">
+          <p [class.trueP]="actualQuestion.listChoix[0].isValid"><span>A</span>{{actualQuestion.listChoix[0].texteChoix}}</p>
         </div>
+        <div class="listChoixStyle student">
+          <p [class.trueP]="actualQuestion.listChoix[1].isValid"><span>B</span>{{actualQuestion.listChoix[1].texteChoix}}</p>
+        </div>
+        <div class="listChoixStyle student">
+          <p [class.trueP]="actualQuestion.listChoix[2].isValid"><span>C</span>{{actualQuestion.listChoix[2].texteChoix}}</p>
+        </div>
+        <div class="listChoixStyle student">
+          <p [class.trueP]="actualQuestion.listChoix[3].isValid"><span>D</span>{{actualQuestion.listChoix[3].texteChoix}}</p>
+        </div>
+      </div>
 
 
-      <input class="sendBtn" type="submit" value="Valider">
+      <input *ngIf="!waitingForResponse && !showResponse" class="sendBtn" type="submit" value="Valider">
     </form>
   </div>
 
