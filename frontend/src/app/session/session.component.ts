@@ -93,7 +93,8 @@ export class SessionComponent implements OnInit, OnDestroy {
             mail: this.us.currentUser.mail,
             nbQuestionQCM: this.actualQCM.nbQuestionQCM,
             maxPointQCM: this.actualQCM.maxPointQCM,
-            listQuestion: [this.currentQuestionFromUser()]
+            listQuestion: [this.currentQuestionFromUser()],
+            matiereQCM: this.actualQCM.matiereQCM
           };
           this.qcmService.postAnswer(reponseEleve).subscribe(
             (reponseEleveToGetSessionID: any) => {
@@ -179,7 +180,8 @@ export class SessionComponent implements OnInit, OnDestroy {
         mail: this.us.currentUser.mail,
         nbQuestionQCM: this.actualQCM.nbQuestionQCM,
         maxPointQCM: this.actualQCM.maxPointQCM,
-        listQuestion: [currentQuestion]
+        listQuestion: [currentQuestion],
+        matiereQCM: this.actualQCM.matiereQCM
       };
       this.qcmService.postAnswer(reponseEleve).subscribe(
         (reponseEleveToGetSessionID: any) => {
