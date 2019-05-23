@@ -8,4 +8,5 @@ export interface IReponseEleve {
     maxPointQCM : number;
     listQuestion: Array<IQuestion>;
     sessionID: number;
+    matiereQCM: string;
 }

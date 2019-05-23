@@ -82,7 +82,7 @@ export class StatsDashboardComponent implements OnInit {
         this.listQCM = listQCMFromAPI;
         console.log('listQCMFrom API ', this.listQCM);
       }
-    )
+    );
   }
 
   ngOnInit() {

@@ -9,6 +9,7 @@ export const ReponseEleveSchema = new Schema({
     mail: { type: String, required: true },
     nbQuestionQCM: { type: Number, required: true },
     maxPointQCM: { type: Number, required: true },
+    matiereQCM: { type: String, required: true },
     listQuestion: [Question],
     sessionID: { type: Number }
 });

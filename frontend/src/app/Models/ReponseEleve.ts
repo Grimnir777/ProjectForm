@@ -5,6 +5,7 @@ export class ReponseEleve {
   nomQCM: string;
   mail: string;
   nbQuestionQCM: number;
+  matiereQCM: string;
   maxPointQCM: number;
   listQuestion: Array<Question>;
 
@@ -18,6 +19,7 @@ export class ReponseEleve {
       this.nbQuestionQCM = reponseEleve.nbQuestionQCM;
       this.maxPointQCM = reponseEleve.maxPointQCM;
       this.listQuestion = reponseEleve.listQuestion;
+      this.matiereQCM = reponseEleve.matiereQCM;
     }
   }
 }

@@ -80,6 +80,7 @@ export class SessionComponent implements OnInit, OnDestroy {
 
       this.wss.listen('startSession').subscribe(() => {
         this.sessionStarted = true;
+        this.newQuestion();
         console.log('session started');
       });
 
@@ -200,7 +201,6 @@ export class SessionComponent implements OnInit, OnDestroy {
       currentQuestion['nomEleve'] = this.us.currentUser.nom;
       this.wss.sendNewResponse(currentQuestion, this.actualQCM._id, this.questionPos);
     }
-
     this.questionPos++;
     if (this.questionPos === this.actualQCM.nbQuestionQCM) {
       this.router.navigate(['/dashboard']);
@@ -212,7 +212,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   newQuestion() {
     this.clearCheckbox();
     console.log('enter new question: ', this.actualQCM.listQuestions[this.questionPos]);
-    this.wss.sendNewQuestion(this.actualQCM.listQuestions[this.questionPos]);
+    // this.wss.sendNewQuestion(this.actualQCM.listQuestions[this.questionPos]);
     this.actualQuestion = this.actualQCM.listQuestions[this.questionPos];
   }
 

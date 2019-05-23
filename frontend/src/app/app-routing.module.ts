@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'notesElevesQCM', component: NotesQCMDashboardComponent, canActivate: [ConnectedGuard] },
   { path: 'stats', component: StatsDashboardComponent, canActivate: [ConnectedGuard] },
   { path: 'participerQCM', component: ParticipationQCMDashboardComponent, canActivate: [ConnectedGuard] },
-  { path: 'mesNotes', component: DashboardComponent, canActivate: [ConnectedGuard] },
+  { path: 'mesNotes', component: NotesQCMDashboardComponent, canActivate: [ConnectedGuard] },
   { path: '**', redirectTo: '' }
 ];
 
