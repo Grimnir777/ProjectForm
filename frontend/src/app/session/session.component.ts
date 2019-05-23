@@ -48,25 +48,24 @@ export class SessionComponent implements OnInit, OnDestroy {
       this.wss.listen('newResponse').subscribe((result: any) => {
         console.log('nouvelle reponse');
 
-        if(!this.listAnswerEleve[result.questionPos]) {
+        if (!this.listAnswerEleve[result.questionPos]) {
           this.listAnswerEleve[result.questionPos] = [];
         }
         console.log('before failure ',  result.response);
-
-        let choix = result.response.listChoix;
-        let goodResponse = true;
-        if(this.actualQCM.listQuestions[result.questionPos].nbReponseValidQuestion === choix.length){
-          choix.forEach(choix => {
-            if(choix.isValid === false )
-            {
-              goodResponse = false;
-            }
-          });
+        let goodResponse = false;
+        let counterGoodResponse = 0;
+        const listChoix = result.response.listChoix;
+        listChoix.forEach(choix => {
+          if (choix.isValid) {
+            counterGoodResponse++;
+          }
+        });
+        if (counterGoodResponse === result.response.nbReponseValidQuestion &&
+          listChoix.length === result.response.nbReponseValidQuestion) {
+          goodResponse = true;
         }
-
         result.response['goodResponse'] = goodResponse;
-        
-        console.log(result.response)
+        console.log(result.response);
         this.listAnswerEleve[result.questionPos].push(result.response);
         console.log(this.listAnswerEleve);
       });
@@ -98,7 +97,7 @@ export class SessionComponent implements OnInit, OnDestroy {
             (reponseEleveToGetSessionID: any) => {
               this.sessionID = reponseEleveToGetSessionID.sessionID;
             },
-            (err) =>{
+            (err) => {
               console.log(err);
             }
           );
@@ -184,16 +183,17 @@ export class SessionComponent implements OnInit, OnDestroy {
         (reponseEleveToGetSessionID: any) => {
           this.sessionID = reponseEleveToGetSessionID.sessionID;
         },
-        (err) =>{
+        (err) => {
           console.log(err);
         }
       );
       const responseToSend = {
         listChoix: currentQuestion.listChoix,
         nomEleve: this.us.currentUser.nom,
-        pointQuestion: currentQuestion.pointQuestion
-      }
-      this.wss.sendNewResponse(responseToSend,this.actualQCM._id, this.questionPos);
+        pointQuestion: currentQuestion.pointQuestion,
+        nbReponseValidQuestion: currentQuestion.nbReponseValidQuestion
+      };
+      this.wss.sendNewResponse(responseToSend, this.actualQCM._id, this.questionPos);
     } else {
       this.qcmService.updateAnswer(this.actualQCM.nomQCM, this.us.currentUser.mail, this.sessionID, currentQuestion);
       currentQuestion['nomEleve'] = this.us.currentUser.nom;
