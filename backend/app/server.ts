@@ -11,6 +11,7 @@ nsp.on("connection", (socket) => {
   socket.emit('connected', "");
 
   socket.on("openModule", (module,teacher)=>{
+    console.log('try to open new module ',module)
     let newModule = {
       nbStudents : 0,
       responsable : {
@@ -77,15 +78,15 @@ nsp.on("connection", (socket) => {
 
 
   //Nouvelle question
-  socket.on("newQuestion", newQuestion => {
+  socket.on("newQuestion", (module,newQuestion) => {
     //console.log("newQuestion Received: ");
-    //console.log(newQuestion);
-    socket.broadcast.emit("newQuestion",  newQuestion );
+    console.log(newQuestion);
+    nsp.to(module).emit("newQuestion",  newQuestion );
   });
 
   //Affichage bonnes réponses question
-  socket.on("printResponseQuestion", () => {
-    socket.broadcast.emit("printResponseQuestion",);
+  socket.on("printResponseQuestion", (module) => {
+    nsp.to(module).emit("printResponseQuestion",);
   });
 
   //Envoi d'une réponse au professeur

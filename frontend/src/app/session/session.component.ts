@@ -114,6 +114,7 @@ export class SessionComponent implements OnInit, OnDestroy {
       });
 
       this.wss.listen('newQuestion').subscribe((question) => {
+        console.log(question)
         if(question == null){
           this.router.navigate(['/dashboard']);
         }
@@ -161,7 +162,9 @@ export class SessionComponent implements OnInit, OnDestroy {
 
   startSession() {
     this.questionPos = 0;
-    this.wss.sendNewQuestion(this.actualQCM.listQuestions[this.questionPos]);
+    console.log('sending new question')
+    console.log(this.actualQCM.listQuestions[this.questionPos])
+    this.wss.sendNewQuestion(this.actualQCM._id , this.actualQCM.listQuestions[this.questionPos]);
     this.wss.startSession(this.actualQCM._id);
     this.sessionStarted = true;
   }
@@ -237,17 +240,17 @@ export class SessionComponent implements OnInit, OnDestroy {
     this.clearCheckbox();
     this.questionPos++;
     if (this.questionPos === this.actualQCM.nbQuestionQCM) {
-      this.wss.sendNewQuestion(null);
+      this.wss.sendNewQuestion(this.actualQCM._id ,null);
       //this.router.navigate(['/dashboard']);
     } else {
-      this.wss.sendNewQuestion(this.actualQCM.listQuestions[this.questionPos]);
+      this.wss.sendNewQuestion(this.actualQCM._id , this.actualQCM.listQuestions[this.questionPos]);
     }
     //console.log('enter new question: ', this.actualQCM.listQuestions[this.questionPos]);
 
   }
 
   showResponses(){
-    this.wss.printResponseQuestion();
+    this.wss.printResponseQuestion(this.actualQCM._id );
   }
 
   clearCheckbox() {

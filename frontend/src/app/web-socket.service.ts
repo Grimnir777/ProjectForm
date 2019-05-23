@@ -69,12 +69,12 @@ export class WebSocketService {
     this.socket.emit('stopSession', moduleID);
   }
 
-  sendNewQuestion(newQuestion) {
-    this.socket.emit('newQuestion', newQuestion);
+  sendNewQuestion(moduleID : string, newQuestion) {
+    this.socket.emit('newQuestion',moduleID, newQuestion );
   }
 
-  printResponseQuestion() {
-    this.socket.emit('printResponseQuestion');
+  printResponseQuestion(module) {
+    this.socket.emit('printResponseQuestion',module);
   }
 
   sendNewResponse(newResponse,moduleID, questionPos) {
