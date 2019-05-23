@@ -5,9 +5,15 @@ import { IReponseEleve } from "Interfaces/ReponseEleve";
 import { ReponseEleve } from "../Models/ReponseEleve";
 
 export class QCMController {
-    public async getQCMSOpenened(req: Request, res: Response) {
+    public async getQCMS(req: Request, res: Response) {
         try {
-            let qcms = await QCM.find({ 'ouvert': true });
+            let qcms;
+            if(req.body.role === 'eleve'){
+                qcms = await QCM.find({ 'ouvert': true });
+            }
+            else{
+                qcms = await QCM.find({});
+            }
             if (qcms) {
                 res.status(200).send(qcms);
             }
@@ -57,6 +63,21 @@ export class QCMController {
                 .findOneAndUpdate({'mail':req.body.mail, 'nomQCM': req.body.nomQCM}, 
                 { $push: { listQuestion: req.body.currentQuestion  } });
             if (resultUpdate) {
+                res.status(200).send(resultUpdate);
+            }
+            return;
+        }
+        catch (err) {
+            res.status(400).send(err);
+            return;
+        }
+    }
+
+    public async openQCM(req:Request, res: Response) {
+        console.log(req.body.nomQCM + ' opened')
+        try {
+            const resultUpdate = await QCM.updateOne({'nomQCM': req.body.nomQCM }, { $set: { 'ouvert': true } });
+            if(resultUpdate) {
                 res.status(200).send(resultUpdate);
             }
             return;

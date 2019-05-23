@@ -5,25 +5,27 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ReponseEleve } from 'src/app/Models/ReponseEleve';
+import { User } from 'src/app/Models/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QCMService {
 
-  private _getQCMSOpenedUrl = environment.qcmAPI + 'getQCMSOpenened';
+  private _getQCMSUrl = environment.qcmAPI + 'getQCMS';
   private _postQCMUrl = environment.qcmAPI + 'postQCM';
   private _postAnswerQCMUrl = environment.qcmAPI + 'postAnswerQCM';
   private _updateAnswerQCMUrl = environment.qcmAPI + 'updateAnswerQCM';
   private _shutDownQCMUrl = environment.qcmAPI + 'shutDownQCM';
+  private _openQCMUrl = environment.qcmAPI + 'openQCM';
   public currentQCMS: Array<QCM>;
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  public getQCMSOpened() {
+  public getQCMS(user : User) {
     return new Observable((suscriber) => {
-      this.http.get(this._getQCMSOpenedUrl).subscribe((qcmsFromAPI: Array<any>) => {
+      this.http.post(this._getQCMSUrl,user).subscribe((qcmsFromAPI: Array<any>) => {
         this.currentQCMS = [];
         for (let i = 0; i < qcmsFromAPI.length; i++) {
           this.currentQCMS.push(new QCM(qcmsFromAPI[i]));
@@ -65,6 +67,14 @@ export class QCMService {
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+
+  openQCM(nomQCM) {
+    return this.http.post(this._openQCMUrl, {nomQCM}).subscribe(
+      (result) => {
+        console.log('hey it works');
       }
     );
   }

@@ -7,7 +7,7 @@
     </div> -->
   <div class="wrap">
     <ng-container *ngIf="showPanel">
-      <ng-container *ngFor="let qcm of qcmsOpened">
+      <ng-container *ngFor="let qcm of allQCMS">
         <a class="qcm" (click)="selectQCM(qcm)">
             <h2>{{qcm.nomQCM}}</h2>
             <p>Matière : {{qcm.matiereQCM}}</p>

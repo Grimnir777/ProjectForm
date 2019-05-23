@@ -48,6 +48,8 @@ export class SessionComponent implements OnInit, OnDestroy {
         console.log('nouvelle reponse');
         console.log(response);
       });
+
+      this.qcmService.openQCM(this.actualQCM.nomQCM);
     } else {
       this.wss.joinModule(this.actualQCM._id);
       this.wss.listen('NBStudentsOnline').subscribe((nbStudents) => {
