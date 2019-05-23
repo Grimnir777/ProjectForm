@@ -5,6 +5,7 @@
   max-height: 678px;
   background: white;
   border-radius: 10px;
+  padding-top: 30px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -55,6 +56,11 @@ input[type=text]::placeholder {
   margin: 0 auto;
 }
 
+.enteteQuestion input[type=text] {
+  width: 320px;
+  height: 20px;
+}
+
 .listePossibilite input[type=text] {
   width: calc(100% / 5);
   height: 20px;
@@ -84,24 +90,6 @@ input[type=text]::placeholder {
   height: 0;
 }
 
-.btn{
-  margin-top: 30px;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #fff;
-  text-transform: uppercase;
-  width: 60%;
-  max-width: 280px;
-  height: 50px;
-  border-radius: 25px;
-  background: #57b846;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 25px;
-  border: none;
-  cursor: pointer;
-}
 
 /* The slider */
 .slider {
@@ -131,7 +119,7 @@ input[type=text]::placeholder {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #b053b0;
 }
 
 input:focus + .slider {
@@ -179,8 +167,13 @@ form {
   height: 30px;
   border: none;
   border-radius: 5px;
-  background: #57b846;
+  background: #b053b0;
   color: white;
+}
+
+.btnForm:hover {
+  background: #e693e6;
+  text-decoration: none;
 }
 
 #saveQuestion {
