@@ -7,19 +7,22 @@ const PORT = 3000;
 var openedChannels = {};
 var nsp = io.of("/QCMs");
 nsp.on("connection", (socket) => {
+
   socket.emit('connected', "");
 
-  socket.on("openModule", module=>{
-
+  socket.on("openModule", (module,teacher)=>{
     let newModule = {
       nbStudents : 0,
-      responsable : socket.id,
+      responsable : {
+        id : socket.id,
+        name : teacher.nom
+      },
       students : []
     }
     openedChannels[module] = newModule;
-    console.log("NEW MODULE");
+    console.log("[MODULE]");
     console.log("module ID : " + module);
-    console.log("resonsable ID : " + newModule.responsable);
+    console.log("resonsable ID : " + newModule.responsable.id);
 
     socket.join(module);
   });
@@ -27,45 +30,41 @@ nsp.on("connection", (socket) => {
   socket.on("closeModule", module=>{
     delete openedChannels[module];
     socket.leave(module);
-    console.log("closed module  : ");
+    console.log("[MODULE]");
+    console.log("closed module  : " + module );
   });
 
-  socket.on("joinModule", module => {
-    console.log("Joining module...: " + module);
+  socket.on("joinModule", (module,student) => {
     socket.join(module);
-
     openedChannels[module].nbStudents++;
-    openedChannels[module].students.push(socket.id);
+    openedChannels[module].students.push({
+      id :socket.id,
+      name : student.nom
+    });
 
-    console.log("New User Connected on " + module + " NBStudentsOnline : " + openedChannels[module].nbStudents);
     nsp.to(module).emit("NBStudentsOnline",openedChannels[module].nbStudents);
-
+    nsp.to(module).emit("userConnected",student.nom);
+    
+    console.log("[USERS] New User Connected on " + module + " NBStudentsOnline : " + openedChannels[module].nbStudents);
   });
 
 
   
-  socket.on("quitModule", module => {
-    console.log("Quit module...: " + module);
+  socket.on("quitModule", (module,student) => {
 
     let indexStudent = openedChannels[module].students.findIndex(function(element){
-      return element == socket.id;
+      return element.id == socket.id;
     });
 
     openedChannels[module].nbStudents--;
     openedChannels[module].students.splice(indexStudent,1);
     
-    console.log("User deconnected on " + module + " NBStudentsOnline : " + openedChannels[module].nbStudents);
     nsp.to(module).emit("NBStudentsOnline",openedChannels[module].nbStudents);
-
+    nsp.to(module).emit("userDeconnected",student.nom);
+    
     socket.leave(module);
-
-    //Stil present in module
-    /*
-    io.of('/QCMs').in(module).clients((error, clients) => {
-      if (error) throw error;
-      console.log(clients);
-    });
-    */
+    
+    console.log("[USER] User deconnected on " + module + " NBStudentsOnline : " + openedChannels[module].nbStudents);
   });
 
   socket.on("startSession", (module) =>{
@@ -79,21 +78,21 @@ nsp.on("connection", (socket) => {
 
   //Nouvelle question
   socket.on("newQuestion", newQuestion => {
-    console.log("newQuestion Received: ");
-    console.log(newQuestion);
+    //console.log("newQuestion Received: ");
+    //console.log(newQuestion);
     socket.broadcast.emit("newQuestion",  newQuestion );
   });
 
   //Affichage bonnes réponses question
   socket.on("printResponseQuestion", questionID => {
-    console.log("Ask for print response for : ");
-    console.log(questionID);
+    //console.log("Ask for print response for : ");
+    //console.log(questionID);
     socket.broadcast.emit("printResponseQuestion",  questionID);
   });
 
   //Envoi d'une réponse au professeur
   socket.on("newResponse", (response,module, questionPos) => {
-    socket.broadcast.to(openedChannels[module].responsable).emit('newResponse', {response: response, questionPos: questionPos});
+    socket.broadcast.to(openedChannels[module].responsable.id).emit('newResponse', {response: response, questionPos: questionPos});
   });
 
 });

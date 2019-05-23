@@ -11,99 +11,10 @@ import { UserService } from './Services/UserService/user.service';
 })
 export class AppComponent {
   title = 'frontend';
-  NBStudentsOnline: any;
-  actualSession: string;
-  sessionType: string;
 
   constructor(private userService: UserService, private http: HttpClient, private webSocketService: WebSocketService) {
     if (this.userService.loggedIn()) { // source page, reload on refresh.
       this.userService.initUser();
     }
-    this.sessionType = 'Pas de session en cours';
-    /*
-    this.http.get('http://localhost:3000/formAPI/getData').subscribe(
-      (result) => {
-        console.log(result);
-      }
-    );*/
-  }
-  openModule(module: string) {
-    this.webSocketService.initiateConnection();
-    this.webSocketService.openModule(module);
-    this.sessionType = 'Session prof';
-    this.actualSession = module;
-    this.NBStudentsOnline = 0;
-    this.webSocketService.listen('NBStudentsOnline').subscribe((nbStudents) => {
-      this.NBStudentsOnline = nbStudents;
-    });
-    this.webSocketService.listen('newResponse').subscribe((response) => {
-      console.log(response);
-    });
-  }
-
-  closeModule(module: string) {
-    this.webSocketService.closeModule(module);
-    this.webSocketService.removeListener('NBStudentsOnline');
-    this.sessionType = 'Pas de session en cours';
-    this.actualSession = undefined;
-    this.NBStudentsOnline = undefined;
-  }
-
-  joinModule(module: string) {
-    this.webSocketService.initiateConnection();
-    this.webSocketService.joinModule(module);
-    this.webSocketService.listen('NBStudentsOnline').subscribe((nbStudents) => {
-      this.NBStudentsOnline = nbStudents;
-    });
-
-    this.webSocketService.listen('newQuestion').subscribe((question) => {
-      console.log(question);
-    });
-
-    this.webSocketService.listen('printResponseQuestion').subscribe((responseQuestion) => {
-      console.log(responseQuestion);
-    });
-    this.sessionType = 'Session etudiant';
-    this.actualSession = module;
-  }
-  quitModule(module: string) {
-    this.webSocketService.quitModule(module);
-    this.webSocketService.removeListener('NBStudentsOnline');
-    this.sessionType = 'Pas de session en cours';
-    this.NBStudentsOnline = undefined;
-    this.actualSession = undefined;
-  }
-
-  // TOCHANGE --> TEST
-  sendNewQuestion() {
-    const newQuestion = {
-      nbReponseValidQuestion: 1,
-      pointQuestion: 1,
-      enonce: 'Capitale de la France ?',
-      listChoix: [
-        {
-          texteChoix: 'Paris',
-          isValid: true
-        },
-        {
-          texteChoix: 'Barcelone',
-          isValid: false
-        },
-        {
-          texteChoix: 'Madrid',
-          isValid: false
-        },
-        {
-          texteChoix: 'Londres',
-          isValid: false
-        }
-      ]
-    };
-    this.webSocketService.sendNewQuestion(newQuestion);
-  }
-
-  // TOCHANGE --> TEST
-  printResponseQuestion(questionID: number) {
-    this.webSocketService.printResponseQuestion(questionID);
   }
 }

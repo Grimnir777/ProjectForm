@@ -42,7 +42,7 @@ export class SessionComponent implements OnInit, OnDestroy {
     this.isTeacher = this.us.getUserRole() === 'eleve' ? false : true;
 
     if (this.isTeacher) {
-      this.wss.openModule(this.actualQCM._id);
+      this.wss.openModule(this.actualQCM._id,this.us.currentUser);
       this.wss.listen('NBStudentsOnline').subscribe((nbStudents) => {
         this.NBStudentsOnline = nbStudents;
       });
@@ -73,7 +73,7 @@ export class SessionComponent implements OnInit, OnDestroy {
 
       this.qcmService.openQCM(this.actualQCM.nomQCM);
     } else {
-      this.wss.joinModule(this.actualQCM._id);
+      this.wss.joinModule(this.actualQCM._id,this.us.currentUser);
       this.wss.listen('NBStudentsOnline').subscribe((nbStudents) => {
         this.NBStudentsOnline = nbStudents;
       });
@@ -121,6 +121,15 @@ export class SessionComponent implements OnInit, OnDestroy {
         console.log(responseQuestion);
       });
     }
+    this.wss.listen('userConnected').subscribe((studentName)=>{
+      //alert('user connected : ' + studentName);
+      console.log('user connected : ' + studentName);
+    })
+
+    this.wss.listen('userDeconnected').subscribe((studentName)=>{
+      //alert('user deconnected : ' + studentName);
+      console.log('user deconnected : ' + studentName);
+    })
   }
 
   ngOnDestroy() {
@@ -129,7 +138,7 @@ export class SessionComponent implements OnInit, OnDestroy {
       this.wss.closeModule(this.actualQCM._id);
     } else {
       console.log('STUDENT : deconnexion de la session');
-      this.wss.quitModule(this.actualQCM._id);
+      this.wss.quitModule(this.actualQCM._id,this.us.currentUser);
     }
   }
 

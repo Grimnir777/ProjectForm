@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { User } from './Models/User';
 
 
 @Injectable({
@@ -32,20 +33,20 @@ export class WebSocketService {
     this.socket.emit(eventName, data);
   }
 
-  openModule(moduleID: string) {
-    this.socket.emit('openModule', moduleID);
+  openModule(moduleID: string , user : User) {
+    this.socket.emit('openModule', moduleID , user);
   }
 
   closeModule(moduleID: string) {
     this.socket.emit('closeModule', moduleID);
   }
 
-  joinModule(moduleID: string) {
-    this.socket.emit('joinModule', moduleID);
+  joinModule(moduleID: string , user : User) {
+    this.socket.emit('joinModule', moduleID,user);
   }
 
-  quitModule(moduleID: string) {
-    this.socket.emit('quitModule', moduleID);
+  quitModule(moduleID: string , user : User) {
+    this.socket.emit('quitModule', moduleID , user);
   }
 
   startSession(moduleID: string) {
