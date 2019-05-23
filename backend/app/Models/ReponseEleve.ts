@@ -4,9 +4,12 @@ import { IReponseEleve } from "../Interfaces/ReponseEleve";
 const Schema = mongoose.Schema;
 var Question = QuestionSchema;
 
-export const ReponseEleveSchema = new Schema ({
-    ReponseEleve: { type: String, required: true},
-    nbQuestionQCM: { type: Number, required: true},
-    maxPoint: { type: Number, required: true},
+export const ReponseEleveSchema = new Schema({
+    nomQCM: { type: String, required: true },
+    mail: { type: String, required: true },
+    nbQuestionQCM: { type: Number, required: true },
+    maxPointQCM: { type: Number, required: true },
     listQuestion: [Question]
 });
+
+export let ReponseEleve: Model<IReponseEleve> = mongoose.model<IReponseEleve>("reponseEleve", ReponseEleveSchema, "ReponseEleve");

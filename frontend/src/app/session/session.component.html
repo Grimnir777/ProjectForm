@@ -1,34 +1,40 @@
 <div class="container">
-  <div class="wrap">
-    <div class="header">
-      <h1>Nombre étudiants connectés : {{NBStudentsOnline}}</h1>
-      <h1>{{actualQCM.nomQCM}}</h1>
-      <h2>{{actualQCM.matiereQCM}}</h2>
-    </div>
-
-    <!-- A remplacer par un form -->
-    <!-- <div class="questions" *ngIf="sessionStarted">
-      <div class="question" *ngFor="let q of actualQCM.listQuestions">
-        <h3 class="questionTitle">{{q.enonce}}</h3>
-        <div class="choices" *ngFor="let ch of q.listChoix" >
-          <p class="choice">{{ch.texteChoix}}</p>
-        </div>
-      </div>
-    </div> -->
-
-    <form #questionForm="ngForm" *ngIf="sessionStarted" class="wrapDiv"
-    (ngSubmit)="onQuestionSent(questionForm)">
-      <input [(ngModel)]="c.isValid" *ngFor="let c of actualQuestion.listChoix" type="checkbox" placeholder="c.isValid"> 
-      <input class="sendBtn" type="submit" value="Valider">
-    </form>
-
-
+  <div class="header">
+    <h1>Nombre étudiants connectés : {{NBStudentsOnline}}</h1>
+    <h1>{{actualQCM.nomQCM}}</h1>
+    <h2>{{actualQCM.matiereQCM}}</h2>
   </div>
-  <p *ngIf="sessionStoped">Session terminée</p>
-  <p *ngIf="sessionStarted">Session démarrée</p>
-  <div *ngIf="isTeacher">
-    <a (click)="newQuestion()" >Nouvelle question</a>
+  <p *ngIf="sessionStoped" class="sessionInfo">Session terminée</p>
+  <p *ngIf="sessionStarted" class="sessionInfo">Session en cours</p>
+  <div id="panelTeacher" *ngIf="isTeacher">
+    <a (click)="newQuestion()">Nouvelle question</a>
     <a (click)="startSession()" *ngIf="!sessionStarted">Démarrer la session</a>
     <a (click)="stopSession()" *ngIf="sessionStarted">Fermer la session</a>
+  </div>
+  <div id="formDivQuestion" *ngIf="sessionStarted">
+    <form #questionForm="ngForm" id="formDiv" (ngSubmit)="onQuestionSent(questionForm)">
+      <p class="questionEnonce">{{actualQuestion.enonce}}</p>
+      <div class="listChoixStyle">
+        <p [class.activeP]="cb1Result"><span
+            [class.activeSpan]="cb1Result">A</span>{{actualQuestion.listChoix[0].texteChoix}}</p>
+        <input [(ngModel)]="cb1Result" name="cb1" type="checkbox">
+      </div>
+      <div class="listChoixStyle">
+        <p [class.activeP]="cb2Result"><span
+            [class.activeSpan]="cb2Result">B</span>{{actualQuestion.listChoix[1].texteChoix}}</p>
+        <input [(ngModel)]="cb2Result" name="cb2" type="checkbox">
+      </div>
+      <div class="listChoixStyle">
+        <p [class.activeP]="cb3Result"><span
+            [class.activeSpan]="cb3Result">C</span>{{actualQuestion.listChoix[2].texteChoix}}</p>
+        <input [(ngModel)]="cb3Result" name="cb3" type="checkbox">
+      </div>
+      <div class="listChoixStyle">
+        <p [class.activeP]="cb4Result"><span
+            [class.activeSpan]="cb4Result">D</span>{{actualQuestion.listChoix[3].texteChoix}}</p>
+        <input [(ngModel)]="cb4Result" name="cb4" type="checkbox">
+      </div>
+      <input class="sendBtn" type="submit" value="Valider">
+    </form>
   </div>
 </div>

@@ -2,17 +2,21 @@ import { Question } from './Question';
 
 export class ReponseEleve {
   _id: string;
-  ReponseEleve: string;
+  nomQCM: string;
+  mail: string;
   nbQuestionQCM: number;
-  maxPoint: number;
+  maxPointQCM: number;
   listQuestion: Array<Question>;
 
   constructor(reponseEleve?: any) {
-    if (ReponseEleve) {
-      this._id = reponseEleve._id;
-      this.ReponseEleve = reponseEleve.ReponseEleve;
+    if (reponseEleve) {
+      if (reponseEleve._id) {
+        this._id = reponseEleve._id;
+      }
+      this.nomQCM = reponseEleve.nomQCM;
+      this.mail = reponseEleve.mail;
       this.nbQuestionQCM = reponseEleve.nbQuestionQCM;
-      this.maxPoint = reponseEleve.maxPoint;
+      this.maxPointQCM = reponseEleve.maxPointQCM;
       this.listQuestion = reponseEleve.listQuestion;
     }
   }

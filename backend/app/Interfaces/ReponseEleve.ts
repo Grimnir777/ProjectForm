@@ -2,8 +2,9 @@ import { IQuestion } from './Question';
 
 export interface IReponseEleve {
     _id : string;
-    ReponseEleve: string;
+    nomQCM: string;
+    mail: string;
     nbQuestionQCM : number;
-    maxPoint : number;
+    maxPointQCM : number;
     listQuestion: Array<IQuestion>;
 }

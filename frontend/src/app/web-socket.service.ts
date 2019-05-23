@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as io from "socket.io-client";
+import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
 
 
@@ -7,65 +7,65 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WebSocketService {
-  socket :any;
-  readonly uri : string = 'localhost:3000/QCMs';
+  socket: any;
+  readonly uri: string = 'localhost:3000/QCMs';
 
-  constructor() {}
+  constructor() { }
 
-  initiateConnection(){
+  initiateConnection() {
     this.socket = io(this.uri);
   }
 
-  listen(eventName : string ){
-    return new Observable((suscriber)=>{
-      this.socket.on(eventName,(data)=>{
+  listen(eventName: string) {
+    return new Observable((suscriber) => {
+      this.socket.on(eventName, (data) => {
         suscriber.next(data);
-      })
+      });
     });
-  };
+  }
 
-  removeListener(eventName: string){
+  removeListener(eventName: string) {
     this.socket.removeAllListeners(eventName);
   }
 
-  emit(eventName : string, data : any){
-    this.socket.emit(eventName,data);
+  emit(eventName: string, data: any) {
+    this.socket.emit(eventName, data);
   }
 
-  openModule(moduleID: string){
-    this.socket.emit("openModule",moduleID);
+  openModule(moduleID: string) {
+    this.socket.emit('openModule', moduleID);
   }
 
-  closeModule(moduleID: string){
-    this.socket.emit("closeModule",moduleID);
+  closeModule(moduleID: string) {
+    this.socket.emit('closeModule', moduleID);
   }
 
-  joinModule(moduleID: string){
-    this.socket.emit("joinModule",moduleID);
+  joinModule(moduleID: string) {
+    this.socket.emit('joinModule', moduleID);
   }
 
-  quitModule(moduleID: string){
-    this.socket.emit("quitModule",moduleID);
+  quitModule(moduleID: string) {
+    this.socket.emit('quitModule', moduleID);
   }
 
-  startSession(moduleID: string){
-    this.socket.emit("startSession",moduleID);
+  startSession(moduleID: string) {
+    this.socket.emit('startSession', moduleID);
   }
 
-  stopSession(moduleID: string){
-    this.socket.emit("stopSession",moduleID);
+  stopSession(moduleID: string) {
+    this.socket.emit('stopSession', moduleID);
   }
 
-  sendNewQuestion(newQuestion){
-    this.socket.emit("newQuestion",newQuestion);
+  sendNewQuestion(newQuestion) {
+    this.socket.emit('newQuestion', newQuestion);
   }
 
-  printResponseQuestion(questionID){
-    this.socket.emit("printResponseQuestion",questionID);
+  printResponseQuestion(questionID) {
+    this.socket.emit('printResponseQuestion', questionID);
   }
 
-  sendNewResponse(newResponse){
-    this.socket.emit("newResponse",newResponse);
+  sendNewResponse(newResponse) {
+    this.socket.emit('newResponse', newResponse);
   }
- 
+
 }

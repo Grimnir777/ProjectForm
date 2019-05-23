@@ -35,6 +35,13 @@ export class Question {
       this.listChoix.push(choix3);
       this.listChoix.push(choix4);
     }
+    if (item['_id']) {
+      console.log('enter item id');
+      this._id = item._id;
+      this.nbReponseValidQuestion = item.nbReponseValidQuestion;
+      this.enonce = item.enonce;
+      this.pointQuestion = item.pointQuestion;
+      this.listChoix = item.listChoix;
+    }
   }
-
 }

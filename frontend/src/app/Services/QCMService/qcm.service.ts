@@ -4,6 +4,7 @@ import { QCM } from 'src/app/Models/QCM';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ReponseEleve } from 'src/app/Models/ReponseEleve';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class QCMService {
 
   private _getQCMSOpenedUrl = environment.qcmAPI + 'getQCMSOpenened';
   private _postQCMUrl = environment.qcmAPI + 'postQCM';
+  private _postAnswerQCMUrl = environment.qcmAPI + 'postAnswerQCM';
   public currentQCMS: Array<QCM>;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -37,4 +39,15 @@ export class QCMService {
     return this.http.post(this._postQCMUrl, Qcm);
   }
 
+  postAnswer(reponseEleve: any) {
+    return this.http.post(this._postAnswerQCMUrl, reponseEleve).subscribe(
+      (result) => {
+        // on success redirect to dashboard
+        this.router.navigate(['/dashboard']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 }

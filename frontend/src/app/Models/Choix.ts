@@ -5,7 +5,9 @@ export class Choix {
   isValid: boolean;
   constructor(choix?: any) {
     if (choix) {
-      this._id = choix._id;
+      if (choix._id) {
+        this._id = choix._id;
+      }
       this.texteChoix = choix.texteChoix;
       this.isValid = choix.isValid;
     }

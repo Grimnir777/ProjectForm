@@ -4,5 +4,6 @@ export class QCMRoute {
     public routes(app): void {
         app.route('/qcmAPI/getQCMSOpenened').get(this.qcmController.getQCMSOpenened);
         app.route('/qcmAPI/postQCM').post(this.qcmController.postQCM);
+        app.route('/qcmAPI/postAnswerQCM').post(this.qcmController.postAnswerQCM);
     }
 }
