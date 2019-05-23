@@ -9,7 +9,8 @@ export const ReponseEleveSchema = new Schema({
     mail: { type: String, required: true },
     nbQuestionQCM: { type: Number, required: true },
     maxPointQCM: { type: Number, required: true },
-    listQuestion: [Question]
+    listQuestion: [Question],
+    sessionID: { type: Number }
 });
 
 export let ReponseEleve: Model<IReponseEleve> = mongoose.model<IReponseEleve>("reponseEleve", ReponseEleveSchema, "ReponseEleve");

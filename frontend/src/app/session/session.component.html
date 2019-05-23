@@ -10,6 +10,10 @@
     <a (click)="newQuestion()">Nouvelle question</a>
     <a (click)="startSession()" *ngIf="!sessionStarted">Démarrer la session</a>
     <a (click)="stopSession()" *ngIf="sessionStarted">Fermer la session</a>
+    <ng-container *ngFor="let question of listAnswerEleve">
+      Question: 
+      <ng-container *ngFor="let answerEleve of question">Réponse de {{answerEleve.nomEleve}} : {{answerEleve.goodResponse}}</ng-container>
+    </ng-container>
   </div>
   <div id="formDivQuestion" *ngIf="sessionStarted">
     <form #questionForm="ngForm" id="formDiv" (ngSubmit)="onQuestionSent(questionForm)">

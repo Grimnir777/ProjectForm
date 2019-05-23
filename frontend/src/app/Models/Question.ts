@@ -5,6 +5,7 @@ export class Question {
   nbReponseValidQuestion: number;
   enonce: string;
   pointQuestion: number;
+  nomEleve: string;
   listChoix: Array<Choix> = [];
 
   constructor(item?: any) {

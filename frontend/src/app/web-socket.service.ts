@@ -64,8 +64,8 @@ export class WebSocketService {
     this.socket.emit('printResponseQuestion', questionID);
   }
 
-  sendNewResponse(newResponse,moduleID) {
-    this.socket.emit('newResponse', newResponse,moduleID);
+  sendNewResponse(newResponse,moduleID, questionPos) {
+    this.socket.emit('newResponse', newResponse,moduleID, questionPos);
   }
 
 }

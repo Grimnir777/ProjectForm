@@ -44,22 +44,15 @@ export class QCMService {
   }
 
   postAnswer(reponseEleve: any) {
-    return this.http.post(this._postAnswerQCMUrl, reponseEleve).subscribe(
-      (result) => {
-        // on success redirect to dashboard
-        console.log('hey it works');
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    return this.http.post(this._postAnswerQCMUrl, reponseEleve);
   }
 
-  updateAnswer(nomQCM, mail, currentQuestion) {
+  updateAnswer(nomQCM, mail, sessionID, currentQuestion) {
     const obj = {
       nomQCM: nomQCM,
       mail: mail,
-      currentQuestion: currentQuestion
+      currentQuestion: currentQuestion,
+      sessionID: sessionID
     };
     return this.http.post(this._updateAnswerQCMUrl, obj).subscribe(
       (result) => {

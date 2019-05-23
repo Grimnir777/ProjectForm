@@ -44,6 +44,12 @@ export class QCMController {
     public async postAnswerQCM(req: Request, res: Response) {
         try {
             const reponseEleve: IReponseEleve = req.body;
+            const qcmExist = await ReponseEleve.findOne({'mail': reponseEleve.mail, 'nomQCM': reponseEleve.nomQCM});
+            if (qcmExist) {
+                reponseEleve.sessionID = qcmExist.sessionID + 1;
+            } else {
+                reponseEleve.sessionID = 0;
+            }
             const currentReponseEleveToInsert = new ReponseEleve(reponseEleve);
             let currentReponseSaved = await currentReponseEleveToInsert.save();
             if (currentReponseSaved) {
@@ -60,7 +66,7 @@ export class QCMController {
     public async updateAnswerQCM(req:Request, res: Response) {
         try {
             const resultUpdate = await ReponseEleve
-                .findOneAndUpdate({'mail':req.body.mail, 'nomQCM': req.body.nomQCM}, 
+                .findOneAndUpdate({'mail':req.body.mail, 'nomQCM': req.body.nomQCM, 'sessionID': req.body.sessionID }, 
                 { $push: { listQuestion: req.body.currentQuestion  } });
             if (resultUpdate) {
                 res.status(200).send(resultUpdate);
