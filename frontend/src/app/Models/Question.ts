@@ -18,6 +18,12 @@ export class Question {
       if (item.isValid2) {
         this.nbReponseValidQuestion++;
       }
+      if (item.isValid3) {
+        this.nbReponseValidQuestion++;
+      }
+      if (item.isValid4) {
+        this.nbReponseValidQuestion++;
+      }
       this.pointQuestion = 1;
       const choix1 = new Choix(); // init values
       const choix2 = new Choix(); // init values
