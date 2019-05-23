@@ -168,7 +168,6 @@ export class SessionComponent implements OnInit, OnDestroy {
     const isValid4 = question.listChoix[3].isValid;
     question.listChoix = [];
     if (this.cbResult1) {
-      console.log('yes')
       question.listChoix.push(new Choix({ texteChoix: texteChoix1, isValid: isValid1 }));
     }
     if (this.cbResult2) {

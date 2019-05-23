@@ -18,9 +18,20 @@
 
       <ng-container *ngFor="let question of listAnswerEleve ; let i = index ">
         <h2 class="questionEnonce">{{actualQCM.listQuestions[i].enonce}}</h2>
-        <div class="listChoixStyle teacher" *ngFor="let r of actualQCM.listQuestions[i].listChoix ; let j = index">
-          <p [class.trueP]="r.isValid" [class.neutralP]="!r.isValid"><span [class.activeSpan]="'cbResult'+j">{{prefixResponse[j]}}</span>{{r.texteChoix}}</p>
+
+        <div class="listChoixStyle teacher">
+          <p [class.trueP]="actualQCM.listQuestions[i].listChoix[0].isValid" [class.neutralP]="!actualQCM.listQuestions[i].listChoix[0].isValid"><span [class.activeSpan]="cbResult0">{{prefixResponse[0]}}</span>{{actualQCM.listQuestions[i].listChoix[0].texteChoix}}</p>
         </div>
+        <div class="listChoixStyle teacher">
+          <p [class.trueP]="actualQCM.listQuestions[i].listChoix[1].isValid" [class.neutralP]="!actualQCM.listQuestions[i].listChoix[1].isValid"><span [class.activeSpan]="cbResult1">{{prefixResponse[1]}}</span>{{actualQCM.listQuestions[i].listChoix[1].texteChoix}}</p>
+        </div>
+        <div class="listChoixStyle teacher">
+          <p [class.trueP]="actualQCM.listQuestions[i].listChoix[2].isValid" [class.neutralP]="!actualQCM.listQuestions[i].listChoix[2].isValid"><span [class.activeSpan]="cbResult2">{{prefixResponse[2]}}</span>{{actualQCM.listQuestions[i].listChoix[2].texteChoix}}</p>
+        </div>
+        <div class="listChoixStyle teacher">
+          <p [class.trueP]="actualQCM.listQuestions[i].listChoix[3].isValid" [class.neutralP]="!actualQCM.listQuestions[i].listChoix[3].isValid"><span [class.activeSpan]="cbResult3">{{prefixResponse[3]}}</span>{{actualQCM.listQuestions[i].listChoix[3].texteChoix}}</p>
+        </div>
+
         <ng-container class="resultContainer" *ngFor="let answerEleve of question">
           <div class="choixStudent" [class.trueP]="answerEleve.goodResponse" [class.falseP]="!answerEleve.goodResponse" ><p>{{answerEleve.nomEleve[0]}}</p></div>
         </ng-container>
