@@ -15,16 +15,55 @@
 .wrap a {
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: #eee;
+  align-items: flex-start;
+  background-repeat: no-repeat;
   width: 200px;
   height: 200px;
-  color: black;
+  color: white;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   letter-spacing: 1px;
-  padding-right: 10px;
-  padding-left: 10px;
   cursor: pointer;
+  position: relative;
+  border-radius: 5px;
+}
+
+.wrap a:hover {
+  opacity: 0.9;
+}
+.wrap a span {
+  position: absolute;
+  width: 200px;
+  top: -15px;
+  position: absolute; 
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto;
+  text-align: center;
+  font-weight: bold;
+  color:black;
+}
+#creerQCM {
+  background-color: rgb(45,120,134);
+  background-image: url('../../assets/creerQCM.svg');
+}
+
+#participerQCM {
+  background-image: url('../../assets/participerQCM.svg');
+}
+
+#administrerQCM {
+  background-color: rgb(246,115,122);
+  background-image: url('../../assets/administrerQCM.svg');
+}
+#notesElevesQCM {
+  background-color: rgb(246,115,122);
+  background-image: url('../../assets/consulterNotesEleves.svg');
+}
+
+.statsQCM {
+  background-color: rgb(77,207,194);
+  background-image: url('../../assets/stats.svg');
 }

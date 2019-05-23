@@ -1,14 +1,15 @@
 <div class="container">
   <div class="wrap">
     <ng-container *ngIf="userService.currentUser.role === 'professeur'">
-      <a routerLink="/creerQCM">CREER QCM</a> <!-- CreationQCMApp -->
-      <a routerLink="/participerQCM">ADMINISTRER QCM</a> <!-- participationQCMApp -->
-      <a routerLink="/notesElevesQCM">CONSULTER NOTES ELEVES</a> <!-- notesQCMApp -->
-      <a routerLink="/stats">CONSULTER STATS ELEVES</a> <!-- statsApp -->
+      <a id="creerQCM" routerLink="/creerQCM"><span>CREER QCM</span></a> <!-- CreationQCMApp -->
+      <a id="administrerQCM" routerLink="/participerQCM"><span>ADMINISTRER QCM</span></a> <!-- participationQCMApp -->
+      <a id="notesElevesQCM" routerLink="/notesElevesQCM"><span>CONSULTER NOTES ELEVES</span></a> <!-- notesQCMApp -->
+      <a class="statsQCM" routerLink="/stats"><span>CONSULTER STATS ELEVES</span></a> <!-- statsApp -->
     </ng-container>
     <ng-container *ngIf="userService.currentUser.role === 'eleve'">
-      <a routerLink="/participerQCM">PARTICIPER AU QCM</a> <!-- participationQCMApp -->
-      <a routerLink="/mesNotes">CONSULTER MES NOTES</a> <!-- notesQCMApp -->
+      <a id="participerQCM" routerLink="/participerQCM"><span>PARTICIPER AU QCM</span></a> <!-- participationQCMApp -->
+      <a id="notesQCM" routerLink="/mesNotes"><span>CONSULTER MES NOTES</span></a> <!-- notesQCMApp -->
+      <a class="statsQCM" routerLink="/stats"><span>CONSULTER MES STATS</span></a> <!-- statsApp -->
     </ng-container>
   </div>
 </div>

@@ -45,7 +45,7 @@ export class UserService {
     return !!localStorage.getItem('currentUser');
   }
 
-  getUserRole(){
+  getUserRole() {
     return JSON.parse(localStorage.getItem('currentUser'))['role'];
   }
 

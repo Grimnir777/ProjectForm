@@ -50,4 +50,35 @@ export class QCMController {
             return;
         }
     }
+
+    public async updateAnswerQCM(req:Request, res: Response) {
+        try {
+            const resultUpdate = await ReponseEleve
+                .findOneAndUpdate({'mail':req.body.mail, 'nomQCM': req.body.nomQCM}, 
+                { $push: { listQuestion: req.body.currentQuestion  } });
+            if (resultUpdate) {
+                res.status(200).send(resultUpdate);
+            }
+            return;
+        }
+        catch (err) {
+            res.status(400).send(err);
+            return;
+        }
+    }
+
+    public async shutDownQCM(req:Request, res: Response) {
+        try {
+            // req.body = nomQCM
+            const resultUpdate = await QCM.updateOne({'nomQCM': req.body.nomQCM }, { $set: { 'ouvert': false } });
+            if(resultUpdate) {
+                res.status(200).send(resultUpdate);
+            }
+            return;
+        }
+        catch (err) {
+            res.status(400).send(err);
+            return;
+        }
+    }
 }

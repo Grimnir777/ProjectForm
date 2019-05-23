@@ -14,6 +14,8 @@ export class QCMService {
   private _getQCMSOpenedUrl = environment.qcmAPI + 'getQCMSOpenened';
   private _postQCMUrl = environment.qcmAPI + 'postQCM';
   private _postAnswerQCMUrl = environment.qcmAPI + 'postAnswerQCM';
+  private _updateAnswerQCMUrl = environment.qcmAPI + 'updateAnswerQCM';
+  private _shutDownQCMUrl = environment.qcmAPI + 'shutDownQCM';
   public currentQCMS: Array<QCM>;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -43,10 +45,34 @@ export class QCMService {
     return this.http.post(this._postAnswerQCMUrl, reponseEleve).subscribe(
       (result) => {
         // on success redirect to dashboard
-        this.router.navigate(['/dashboard']);
+        console.log('hey it works');
       },
       (err) => {
         console.log(err);
+      }
+    );
+  }
+
+  updateAnswer(nomQCM, mail, currentQuestion) {
+    const obj = {
+      nomQCM: nomQCM,
+      mail: mail,
+      currentQuestion: currentQuestion
+    };
+    return this.http.post(this._updateAnswerQCMUrl, obj).subscribe(
+      (result) => {
+        console.log('hey it works');
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  shutDownQCM(nomQCM) {
+    return this.http.post(this._shutDownQCMUrl, {nomQCM}).subscribe(
+      (result) => {
+        console.log('hey it works');
       }
     );
   }

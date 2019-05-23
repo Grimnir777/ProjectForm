@@ -6,6 +6,7 @@ import { UserService } from '../Services/UserService/user.service';
 import { NgForm } from '@angular/forms';
 import { Choix } from '../Models/Choix';
 import { QCMService } from '../Services/QCMService/qcm.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-session',
@@ -28,7 +29,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   cb4Result = false;
   questionPos = 0;
   currentListQuestion: Array<Question> = [];
-  constructor(private us: UserService, private qcmService: QCMService) {
+  constructor(private router: Router, private us: UserService, private qcmService: QCMService) {
   }
 
   ngOnInit() {
@@ -47,21 +48,6 @@ export class SessionComponent implements OnInit, OnDestroy {
         console.log('nouvelle reponse');
         console.log(response);
       });
-      /* START - POUR LES TESTS ME TUE PAS STEP*/
-      this.wss.listen('stopSession').subscribe(() => {
-        this.sessionStarted = false;
-        this.sessionStoped = true;
-        const reponseEleve = {
-          nomQCM: this.actualQCM.nomQCM,
-          mail: this.us.currentUser.mail,
-          nbQuestionQCM: this.actualQCM.nbQuestionQCM,
-          maxPointQCM: this.actualQCM.maxPointQCM,
-          listQuestion: this.currentListQuestion
-        };
-        this.qcmService.postAnswer(reponseEleve);
-        console.log('session ended brutally bitch');
-      });
-      /* END - POUR LES TESTS ME TUE PAS STEP*/
     } else {
       this.wss.joinModule(this.actualQCM._id);
       this.wss.listen('NBStudentsOnline').subscribe((nbStudents) => {
@@ -76,14 +62,18 @@ export class SessionComponent implements OnInit, OnDestroy {
       this.wss.listen('stopSession').subscribe(() => {
         this.sessionStarted = false;
         this.sessionStoped = true;
-        const reponseEleve = {
-          nomQCM: this.actualQCM.nomQCM,
-          mail: this.us.currentUser.mail,
-          nbQuestionQCM: this.actualQCM.nbQuestionQCM,
-          maxPointQCM: this.actualQCM.maxPointQCM,
-          listQuestion: this.currentListQuestion
-        };
-        this.qcmService.postAnswer(reponseEleve);
+        if (this.questionPos === 0) {
+          const reponseEleve = {
+            nomQCM: this.actualQCM.nomQCM,
+            mail: this.us.currentUser.mail,
+            nbQuestionQCM: this.actualQCM.nbQuestionQCM,
+            maxPointQCM: this.actualQCM.maxPointQCM,
+            listQuestion: [this.currentQuestionFromUser()]
+          };
+          this.qcmService.postAnswer(reponseEleve);
+        } else {
+          this.qcmService.updateAnswer(this.actualQCM.nomQCM, this.us.currentUser.mail, this.currentQuestionFromUser());
+        }
         console.log('session ended brutally bitch');
       });
 
@@ -91,6 +81,7 @@ export class SessionComponent implements OnInit, OnDestroy {
         this.actualQuestion = new Question(question);
         console.log('enter newquestion');
         console.log(this.actualQuestion);
+        // Envoyer l'info de leleve au prof avec newReponse ensuite !
       });
 
       this.wss.listen('printResponseQuestion').subscribe((responseQuestion) => {
@@ -119,10 +110,11 @@ export class SessionComponent implements OnInit, OnDestroy {
   stopSession() {
     this.questionPos = 0;
     this.sessionStarted = false;
+    this.qcmService.shutDownQCM(this.actualQCM.nomQCM);
     this.wss.stopSession(this.actualQCM._id);
   }
 
-  pushQuestionChoices() {
+  currentQuestionFromUser() {
     const question = Object.assign({}, this.actualQCM.listQuestions[this.questionPos]);
     const texteChoix1 = question.listChoix[0].texteChoix;
     const texteChoix2 = question.listChoix[1].texteChoix;
@@ -145,20 +137,27 @@ export class SessionComponent implements OnInit, OnDestroy {
     if (this.cb4Result) {
       question.listChoix.push(new Choix({ texteChoix: texteChoix4, isValid: isValid4 }));
     }
-    this.currentListQuestion.push(question);
+    return question;
   }
   onQuestionSent() {
-    this.pushQuestionChoices();
-    this.questionPos++;
-    if (this.questionPos === this.actualQCM.nbQuestionQCM) {
+    this.currentQuestionFromUser();
+    if (this.questionPos === 0) {
       const reponseEleve = {
         nomQCM: this.actualQCM.nomQCM,
         mail: this.us.currentUser.mail,
         nbQuestionQCM: this.actualQCM.nbQuestionQCM,
         maxPointQCM: this.actualQCM.maxPointQCM,
-        listQuestion: this.currentListQuestion
+        listQuestion: [this.currentQuestionFromUser()]
       };
       this.qcmService.postAnswer(reponseEleve);
+    } else {
+      this.qcmService.updateAnswer(this.actualQCM.nomQCM, this.us.currentUser.mail, this.currentQuestionFromUser());
+    }
+    this.questionPos++;
+    if (this.questionPos === this.actualQCM.nbQuestionQCM) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.newQuestion();
     }
   }
 

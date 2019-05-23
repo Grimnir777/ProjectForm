@@ -15,7 +15,7 @@
         <div formArrayName="items" *ngFor="let item of items.controls; let i = index;">
           <div [formGroupName]="i">
             <div class="enteteQuestion">
-              <p>Question {{i}}</p>
+              <p>Question {{i+1}}</p>
               <input type="text" formControlName="enonce" placeholder="Enonce" />
             </div>
             <div class="listePossibilite">
