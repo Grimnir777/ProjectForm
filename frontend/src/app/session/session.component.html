@@ -31,11 +31,25 @@
   <div id="formDivQuestion" *ngIf="sessionStarted && !isTeacher">
     <form #questionForm="ngForm" id="formDiv" (ngSubmit)="onQuestionSent(questionForm)">
       <p class="questionEnonce">{{actualQuestion.enonce}}</p>
-
-      <div class="listChoixStyle student" *ngFor="let ch of actualQuestion.listChoix ; let k = index">
-        <p [class.activeP]="'cbResult'+k"><span
-            [class.activeSpan]="'cbResult'+k">{{prefixResponse[k]}}</span>{{ch.texteChoix}}</p>
-        <input [(ngModel)]="'cbResult'+k" name="cb{{k}}" type="checkbox">
+      <div class="listChoixStyle student">
+        <p [class.activeP]="cbResult1"><span
+            [class.activeSpan]="cbResult1">A</span>{{actualQuestion.listChoix[0].texteChoix}}</p>
+        <input [(ngModel)]="cbResult1" name="cb1" type="checkbox">
+      </div>
+      <div class="listChoixStyle student">
+        <p [class.activeP]="cbResult2"><span
+            [class.activeSpan]="cbResult2">B</span>{{actualQuestion.listChoix[1].texteChoix}}</p>
+        <input [(ngModel)]="cbResult2" name="cb2" type="checkbox">
+      </div>
+      <div class="listChoixStyle student">
+        <p [class.activeP]="cbResult3"><span
+            [class.activeSpan]="cbResult3">C</span>{{actualQuestion.listChoix[2].texteChoix}}</p>
+        <input [(ngModel)]="cbResult3" name="cb3" type="checkbox">
+      </div>
+      <div class="listChoixStyle student">
+        <p [class.activeP]="cbResult4"><span
+            [class.activeSpan]="cbResult4">D</span>{{actualQuestion.listChoix[3].texteChoix}}</p>
+        <input [(ngModel)]="cbResult4" name="cb4" type="checkbox">
       </div>
 
       <input class="sendBtn" type="submit" value="Valider">
