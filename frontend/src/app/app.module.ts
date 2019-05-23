@@ -13,6 +13,7 @@ import { CreerQCMDashboardComponent } from './CreationQCMApp/creer-qcmdashboard/
 import { NotesQCMDashboardComponent } from './notesQCMApp/notes-qcmdashboard/notes-qcmdashboard.component';
 import { StatsDashboardComponent } from './statsApp/stats-dashboard/stats-dashboard.component';
 import { ParticipationQCMDashboardComponent } from './participationQCMApp/participation-qcmdashboard/participation-qcmdashboard.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ParticipationQCMDashboardComponent } from './participationQCMApp/partic
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [
     WebSocketService,
