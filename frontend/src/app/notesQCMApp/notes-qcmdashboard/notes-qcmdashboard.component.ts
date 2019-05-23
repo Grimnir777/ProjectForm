@@ -3,6 +3,7 @@ import { UserService } from 'src/app/Services/UserService/user.service';
 import { QCMService } from 'src/app/Services/QCMService/qcm.service';
 import { QCM } from 'src/app/Models/QCM';
 import { notEqual } from 'assert';
+import { Question } from 'src/app/Models/Question';
 
 @Component({
   selector: 'app-notes-qcmdashboard',
@@ -17,13 +18,19 @@ export class NotesQCMDashboardComponent implements OnInit {
     this.qcmService.getQCMByUser(userService.currentUser.mail).subscribe(
       (listQCMFromAPI: Array<QCM>) => {
         this.listQCM = listQCMFromAPI;
-        //this.note();
+
+        this.listNotesMatieres.set("Maths",[]);
+        this.listNotesMatieres.set("Histoire",[]);
+        this.listNotesMatieres.set("Informatique",[]);
+
+
+        this.note();
         console.log('listQCMFrom API ', this.listQCM);
       }
     );
   }
 
-  note(){
+  public note(){
     //this.listMatieres.forEach(matiere => {
       //let listNotes : Array<number> = [];
       this.listQCM.forEach(qcm => {
@@ -42,6 +49,7 @@ export class NotesQCMDashboardComponent implements OnInit {
           });
         })
         Note = (20/qcm.maxPointQCM) * counterQuestionGood;
+        console.log("la note est: ", Note);
         this.listNotesMatieres.get(qcm.matiereQCM).push(Note);
         //this.listNotesMatieres.set(qcm.matiereQCM, listNotes);
         //  counter push dans array
@@ -55,5 +63,6 @@ export class NotesQCMDashboardComponent implements OnInit {
 }
   ngOnInit() {
   }
+
 
 }

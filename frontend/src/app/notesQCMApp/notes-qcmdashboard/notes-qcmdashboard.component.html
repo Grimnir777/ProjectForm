@@ -8,20 +8,23 @@
             <th>QCM 1</th>
             <th>QCM 2</th>
             <th>QCM 3</th>
-            <th>QCM 4</th>
-            <th>QCM 5</th>
+           
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Cell 1</td>
-            <td>Cell 2</td>
-            <td>Cell 3</td>
-            <td>Cell 4</td>
-            <td>Cell 5</td>
-            <td>Cell 6</td>
-
+         <tr>
+           <td>Maths</td> 
+            <td *ngFor="let notes of this.listNotesMatieres.get('Maths')">{{notes}}</td>
           </tr>
+          <tr>
+            <td>Histoire</td> 
+            <td *ngFor="let notes of this.listNotesMatieres.get('Histoire')">{{notes}}</td>
+          </tr>
+          <tr>
+            <td>Informatique</td> 
+            <td *ngFor="let notes of this.listNotesMatieres.get('Informatique')">{{notes}}</td>
+          </tr>
+
           <!----<tr>
             <td>Cell 1</td>
             <td>Cell 2</td>
