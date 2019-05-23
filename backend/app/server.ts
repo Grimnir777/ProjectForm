@@ -106,13 +106,11 @@ nsp.on("connection", (socket) => {
     socket.broadcast.emit("printResponseQuestion",  questionID);
   });
 
-  //Envoi d'une réponse au créateur
+  //Envoi d'une réponse au professeur
   socket.on("newResponse", (response,module) => {
-    module = module.toString();
-    console.log("Infos about response : ");
-    console.log(response);
-    nsp.clients[openedChannels[module].responsable].send("newResponse",response);
+    socket.broadcast.to(openedChannels[module].responsable).emit('newResponse', response );
   });
+  
 
 /*
 

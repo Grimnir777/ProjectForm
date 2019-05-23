@@ -103,34 +103,6 @@ export class AppComponent {
   }
 
   // TOCHANGE --> TEST
-  sendNewResponse() {
-    const newResponse = {
-      nbReponseValidQuestion: 1,
-      pointQuestion: 0,
-      enonce: 'Capitale de la France ?',
-      listChoix: [
-        {
-          texteChoix: 'Paris',
-          isValid: false
-        },
-        {
-          texteChoix: 'Barcelone',
-          isValid: true
-        },
-        {
-          texteChoix: 'Madrid',
-          isValid: false
-        },
-        {
-          texteChoix: 'Londres',
-          isValid: false
-        }
-      ]
-    };
-    this.webSocketService.sendNewResponse(newResponse);
-  }
-
-  // TOCHANGE --> TEST
   printResponseQuestion(questionID: number) {
     this.webSocketService.printResponseQuestion(questionID);
   }

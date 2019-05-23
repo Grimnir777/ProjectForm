@@ -104,9 +104,9 @@ export class SessionComponent implements OnInit, OnDestroy {
 
   startSession() {
     this.questionPos = 0;
-    this.sessionStarted = true;
-    this.wss.startSession(this.actualQCM._id);
     this.newQuestion();
+    this.wss.startSession(this.actualQCM._id);
+    this.sessionStarted = true;
   }
 
   stopSession() {
@@ -152,9 +152,13 @@ export class SessionComponent implements OnInit, OnDestroy {
         listQuestion: [this.currentQuestionFromUser()]
       };
       this.qcmService.postAnswer(reponseEleve);
+      this.wss.sendNewResponse(reponseEleve,this.actualQCM._id);
     } else {
-      this.qcmService.updateAnswer(this.actualQCM.nomQCM, this.us.currentUser.mail, this.currentQuestionFromUser());
+      let rep = this.currentQuestionFromUser();
+      this.qcmService.updateAnswer(this.actualQCM.nomQCM, this.us.currentUser.mail, rep);
+      this.wss.sendNewResponse(rep,this.actualQCM._id);
     }
+
     this.questionPos++;
     if (this.questionPos === this.actualQCM.nbQuestionQCM) {
       this.router.navigate(['/dashboard']);
