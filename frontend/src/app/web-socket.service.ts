@@ -25,10 +25,22 @@ export class WebSocketService {
     });
   }
 
-  removeListener(eventName: string) {
-    this.socket.removeAllListeners(eventName);
+  removeAllListenerTeacher(){
+    this.socket.removeAllListeners('NBStudentsOnline');
+    this.socket.removeAllListeners('newResponse');
+    this.socket.removeAllListeners('userConnected');
+    this.socket.removeAllListeners('userDeconnected');
   }
 
+  removeAllListenerStudent(){
+    this.socket.removeAllListeners('NBStudentsOnline');
+    this.socket.removeAllListeners('startSession');
+    this.socket.removeAllListeners('stopSession');
+    this.socket.removeAllListeners('newQuestion');
+    this.socket.removeAllListeners('printResponseQuestion');
+    this.socket.removeAllListeners('userConnected');
+    this.socket.removeAllListeners('userDeconnected');
+  }
   emit(eventName: string, data: any) {
     this.socket.emit(eventName, data);
   }

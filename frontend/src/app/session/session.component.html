@@ -32,16 +32,16 @@
           <p [class.trueP]="actualQCM.listQuestions[i].listChoix[3].isValid" [class.neutralP]="!actualQCM.listQuestions[i].listChoix[3].isValid"><span [class.activeSpan]="cbResult3">{{prefixResponse[3]}}</span>{{actualQCM.listQuestions[i].listChoix[3].texteChoix}}</p>
         </div>
 
-        <ng-container class="resultContainer" *ngFor="let answerEleve of question">
+        <div class="resultContainer" *ngFor="let answerEleve of question">
           <div class="choixStudent" [class.trueP]="answerEleve.goodResponse" [class.falseP]="!answerEleve.goodResponse" ><p>{{answerEleve.nomEleve[0]}}</p></div>
-        </ng-container>
+        </div>
       </ng-container>
     </div>
   </div>
   
   <div id="formDivQuestion" *ngIf="sessionStarted && !isTeacher">
     <form #questionForm="ngForm" id="formDiv" (ngSubmit)="onQuestionSent(questionForm)">
-      <p *ngIf="waitingForResponse">Attente de l'envoi de la réponse par le professeur</p>
+      <p *ngIf="waitingForResponse" class="infoReponse">Attente de l'envoi de la réponse par le professeur</p>
       <p class="questionEnonce">{{actualQuestion.enonce}}</p>
 
 

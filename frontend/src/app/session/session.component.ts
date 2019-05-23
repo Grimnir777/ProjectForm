@@ -50,9 +50,11 @@ export class SessionComponent implements OnInit, OnDestroy {
       });
       this.wss.listen('newResponse').subscribe((result: any) => {
         console.log('nouvelle reponse');
-
+        console.log(this.listAnswerEleve)
         if (!this.listAnswerEleve[result.questionPos]) {
+          console.log(this.questionPos)
           this.listAnswerEleve[result.questionPos] = [];
+          console.log(this.listAnswerEleve)
         }
         let goodResponse = false;
         let counterGoodResponse = 0;
@@ -80,6 +82,7 @@ export class SessionComponent implements OnInit, OnDestroy {
       });
 
       this.wss.listen('startSession').subscribe(() => {
+        this.questionPos = 0;
         this.sessionStarted = true;
         console.log('session started');
       });
@@ -123,6 +126,7 @@ export class SessionComponent implements OnInit, OnDestroy {
         //console.log('enter newquestion');
         //console.log(this.actualQuestion);
         // Envoyer l'info de leleve au prof avec newReponse ensuite !
+        this.questionPos++;
       });
 
       this.wss.listen('printResponseQuestion').subscribe(() => {
@@ -146,9 +150,11 @@ export class SessionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.isTeacher) {
       console.log('PROF : fermeture de la session');
+      this.wss.removeAllListenerTeacher();
       this.wss.closeModule(this.actualQCM._id);
     } else {
       console.log('STUDENT : deconnexion de la session');
+      this.wss.removeAllListenerStudent();      
       this.wss.quitModule(this.actualQCM._id,this.us.currentUser);
     }
   }
@@ -168,6 +174,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   currentQuestionFromUser() {
+    console.log('check at ',this.questionPos)
     const question = Object.assign({}, this.actualQCM.listQuestions[this.questionPos]);
     const texteChoix1 = question.listChoix[0].texteChoix;
     const texteChoix2 = question.listChoix[1].texteChoix;
