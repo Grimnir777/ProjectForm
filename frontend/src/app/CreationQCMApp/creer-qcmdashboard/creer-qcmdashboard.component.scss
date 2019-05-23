@@ -55,6 +55,11 @@ input[type=text]::placeholder {
   margin: 0 auto;
 }
 
+.enteteQuestion input[type=text] {
+  width: 320px;
+  height: 20px;
+}
+
 .listePossibilite input[type=text] {
   width: calc(100% / 5);
   height: 20px;
@@ -90,7 +95,7 @@ input[type=text]::placeholder {
   line-height: 1.5;
   color: #fff;
   text-transform: uppercase;
-  width: 60%;
+  width: 70%;
   max-width: 280px;
   height: 50px;
   border-radius: 25px;
