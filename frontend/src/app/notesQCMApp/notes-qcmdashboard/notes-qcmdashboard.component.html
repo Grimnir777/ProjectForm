@@ -14,15 +14,15 @@
         <tbody>
          <tr>
            <td>Maths</td> 
-            <td *ngFor="let notes of this.listNotesMatieres.get('Maths')">{{notes}}</td>
+            <td *ngFor="let notes of this.listNotesMatieres.get('Maths') | slice: -3">{{notes}}</td>
           </tr>
           <tr>
             <td>Histoire</td> 
-            <td *ngFor="let notes of this.listNotesMatieres.get('Histoire')">{{notes}}</td>
+            <td *ngFor="let notes of this.listNotesMatieres.get('Histoire')| slice: -3">{{notes}}</td>
           </tr>
           <tr>
             <td>Informatique</td> 
-            <td *ngFor="let notes of this.listNotesMatieres.get('Informatique')">{{notes}}</td>
+            <td *ngFor="let notes of this.listNotesMatieres.get('Informatique')| slice: -3">{{notes}}</td>
           </tr>
 
           <!----<tr>

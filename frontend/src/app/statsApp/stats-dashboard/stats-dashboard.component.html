@@ -3,7 +3,7 @@
       <div class="flex">
           <ng-container *ngIf="userService.currentUser.role === 'eleve'">
           <div class="flex-item" id="stat">
-            <div style="display: block;">
+            <div *ngIf="loaded" style="display: block;">
             <canvas baseChart width="470" height="350"
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"

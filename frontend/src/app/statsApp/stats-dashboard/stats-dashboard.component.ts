@@ -4,6 +4,7 @@ import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { UserService } from 'src/app/Services/UserService/user.service';
 import { QCMService } from 'src/app/Services/QCMService/qcm.service';
+import { ReponseEleve } from 'src/app/Models/ReponseEleve';
 
 @Component({
   selector: 'app-stats-dashboard',
@@ -11,12 +12,11 @@ import { QCMService } from 'src/app/Services/QCMService/qcm.service';
   styleUrls: ['./stats-dashboard.component.scss']
 })
 export class StatsDashboardComponent implements OnInit {
-  public lineChartData: ChartDataSets[] = [
-    { data: [15, 16, 10, 13, 17, 15, 14], label: 'Maths' },
-    { data: [10, 11, 5, 14, 12, 15, 16], label: 'Physiques' },
-    { data: [18, 17, 19, 17, 15, 20, 18], label: 'Informtatique', yAxisID: 'y-axis-1' }
-  ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartData: ChartDataSets[];
+  listNotesMatieres= new Map<string, Array<number> >();
+  listQCM: Array<ReponseEleve>;
+  loaded = false;
+  public lineChartLabels: Label[] = ['QCM 1', 'QCM 2', 'QCM 3', 'QCM 4', 'QCM 5'];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
@@ -74,15 +74,27 @@ export class StatsDashboardComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
-  public listQCM: any;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   constructor(private userService: UserService, private qcmService: QCMService) { 
     this.qcmService.getQCMByUser(userService.currentUser.mail).subscribe(
-      (listQCMFromAPI) => {
+      (listQCMFromAPI: Array<ReponseEleve>) => {
         this.listQCM = listQCMFromAPI;
+        this.listNotesMatieres.set('Maths',[]);
+        this.listNotesMatieres.set('Histoire',[]);
+        this.listNotesMatieres.set('Informatique',[]);
+        this.note();
+        this.lineChartData = [
+          { data: this.listNotesMatieres.get('Maths'), label: 'Maths' },
+          { data: this.listNotesMatieres.get('Histoire'), label: 'Histoire' },
+          { data: this.listNotesMatieres.get('Informatique'), label: 'Informatique', yAxisID: 'y-axis-1' }
+        ];
+        this.loaded = true;
+        console.log(' listNotesMatieres ', this.listNotesMatieres);
+        
         console.log('listQCMFrom API ', this.listQCM);
       }
-    );
+      
+  );
   }
 
   ngOnInit() {
@@ -110,5 +122,39 @@ export class StatsDashboardComponent implements OnInit {
     this.lineChartColors[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
   }
 
+  public note(){
+    //this.listMatieres.forEach(matiere => {
+      //let listNotes : Array<number> = [];
+      console.log(this.listQCM);
+      this.listQCM.forEach(qcm => {
+        let counterQuestionGood = 0;
+        let Note=0;
+        qcm.listQuestion.forEach(question => {
+          let counterChoixGood = 0;
+          question.listChoix.forEach(choix => {
+            if (choix.isValid) {
+              counterChoixGood++;
+            }
+            if (counterChoixGood === question.nbReponseValidQuestion &&
+              question.listChoix.length === question.nbReponseValidQuestion) {
+                counterQuestionGood++;
+            }
+          });
+        })
+        Note = (20/qcm.maxPointQCM) * counterQuestionGood;
+        console.log('la note est: ', Note);
+        console.log('ta liste est : ', this.listNotesMatieres);
+        console.log('ton qcm matiere est ', qcm.matiereQCM);
+        console.log('la liste est: ' ,this.listNotesMatieres.get(qcm.matiereQCM));
+        this.listNotesMatieres.get(qcm.matiereQCM).push(Note);
+        //this.listNotesMatieres.set(qcm.matiereQCM, listNotes);
+        //  counter push dans array
 
+      });
+    //});
+    
+
+    
+
+}
 }
