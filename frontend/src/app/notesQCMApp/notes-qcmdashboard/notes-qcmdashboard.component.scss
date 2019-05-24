@@ -23,13 +23,6 @@ body {
 	font-weight: 100;
 }
 
-.containernote {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
 table {
 	width: 700px;
 	border-collapse: collapse;
@@ -83,11 +76,5 @@ tbody {
 	}
 	th {
 		text-align: center !important;
-	}
-	.containernote {
-		width: 98%;
-		margin: 0 auto;
-		position: relative;
-		background-color: white;
 	}
 }
