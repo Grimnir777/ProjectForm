@@ -388,6 +388,14 @@
   }
 
   .container {
-    height: initial;
+		height: initial;
+		min-height: 90vh;
+		max-width: 95vw;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		margin: 0 auto;
+		padding-top: 10px;
   }
 }
