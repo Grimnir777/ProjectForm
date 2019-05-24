@@ -72,9 +72,13 @@ tbody {
 
 @media(max-width: 1000px) {
 	table {
-		width: 90%;
+		width: 100%;
 	}
 	th {
 		text-align: center !important;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 5px !important;
+		padding-right: 5px !important;
 	}
 }
