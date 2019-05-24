@@ -74,3 +74,22 @@
   background-color: rgb(255,202,79);
   background-image: url('../../assets/consulterMesNotes.svg');
 }
+
+@media(max-width:1000px) {
+  .wrap {
+    width: 100%;
+    height: initial;
+    max-height: initial;
+    background: white;
+    border-radius: 10px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .wrap > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}

@@ -76,3 +76,12 @@ tbody {
 		}
 	}
 }
+
+@media(max-width: 1000px) {
+	table {
+		width: 90%;
+	}
+	th {
+		text-align: center !important;
+	}
+}

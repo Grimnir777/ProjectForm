@@ -13,7 +13,7 @@ class App {
     public userRoute: UserRoute = new UserRoute();
     public qcmRoute : QCMRoute = new QCMRoute();
 
-    public db = "mongodb://localhost:27017/projectForm";
+    public db = "mongodb://bob:test@cluster0-shard-00-00-v1hef.mongodb.net:27017,cluster0-shard-00-01-v1hef.mongodb.net:27017,cluster0-shard-00-02-v1hef.mongodb.net:27017/projectForm?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
     constructor() {
         this.app = express();
         this.config();

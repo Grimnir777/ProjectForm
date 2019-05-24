@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  baseAPI: 'http://localhost:3000/',
-  userAPI: 'http://localhost:3000/' + 'userAPI/',
-  qcmAPI: 'http://localhost:3000/' + 'qcmAPI/'
+  baseAPI: 'http://18.184.154.240:3000/',
+  userAPI: 'http://18.184.154.240:3000/' + 'userAPI/',
+  qcmAPI: 'http://18.184.154.240:3000/' + 'qcmAPI/'
 };
 
 /*

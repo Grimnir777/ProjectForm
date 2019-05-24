@@ -377,3 +377,13 @@
   border-radius: 10px;
 
 }
+
+@media(max-width: 1000px) {
+  .listChoixStyle {
+
+    p, input {
+      max-width: 90vw;
+      margin: 0 auto;
+    }
+  }
+}

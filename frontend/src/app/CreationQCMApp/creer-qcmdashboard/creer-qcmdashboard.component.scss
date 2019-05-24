@@ -197,6 +197,21 @@ form {
   margin: 0 auto;
 }
 
+@media(max-width: 1000px) {
+  .infoQCM {
+    display: flex;
+    justify-content: space-around;
+    width: initial;
+    flex-wrap: wrap;
+    padding-top: 25px;
+    margin-bottom: 5px;
+    margin: 0 auto;
+  }
+  .infoQCM > * {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+}
 /* width */
 ::-webkit-scrollbar {
   width: 5px;

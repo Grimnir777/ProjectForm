@@ -22,3 +22,9 @@
 
 
 }*/
+@media(max-width: 1000px) {
+  canvas {
+    max-width: 90% !important;
+    margin: 0 auto;
+  }
+}

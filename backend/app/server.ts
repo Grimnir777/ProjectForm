@@ -29,10 +29,12 @@ nsp.on("connection", (socket) => {
   });
 
   socket.on("closeModule", module=>{
-    delete openedChannels[module];
-    socket.leave(module);
-    console.log("[MODULE]");
-    console.log("closed module  : " + module );
+    if(openedChannels[module]) {
+      delete openedChannels[module];
+      socket.leave(module);
+      console.log("[MODULE]");
+      console.log("closed module  : " + module );
+    }
   });
 
   socket.on("joinModule", (module,student) => {
@@ -52,7 +54,7 @@ nsp.on("connection", (socket) => {
 
   
   socket.on("quitModule", (module,student) => {
-
+    if(openedChannels[module]) {
     let indexStudent = openedChannels[module].students.findIndex(function(element){
       return element.id == socket.id;
     });
@@ -66,6 +68,7 @@ nsp.on("connection", (socket) => {
     socket.leave(module);
     
     console.log("[USER] User deconnected on " + module + " NBStudentsOnline : " + openedChannels[module].nbStudents);
+  }
   });
 
   socket.on("startSession", (module) =>{

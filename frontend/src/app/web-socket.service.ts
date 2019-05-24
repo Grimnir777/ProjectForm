@@ -9,7 +9,7 @@ import { User } from './Models/User';
 })
 export class WebSocketService {
   socket: any;
-  readonly uri: string = 'localhost:3000/QCMs';
+  readonly uri: string = 'http://18.184.154.240:3000/QCMs';
 
   constructor() { }
 
