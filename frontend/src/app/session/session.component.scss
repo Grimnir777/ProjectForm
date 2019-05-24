@@ -11,6 +11,106 @@
   border-radius: 10px;
 }
 
+#notification{
+  position: absolute;
+  height: 50px;
+  width: 200px;
+  right: 0px;
+  top: 0px;
+
+  opacity: 0;
+
+  margin-top: 10px;
+  margin-right: 10px;
+
+  background-color: #C1F7EE;
+  transform-origin: right;
+
+  #text{
+    position: absolute;
+    height: 40px;
+    width: 190px;
+    //border : 1px solid green;
+
+    margin: 5px;
+
+  }
+
+}
+
+#nbStudents {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  border-radius: 50%;
+  opacity: 1;
+
+  margin-top: 10px;
+  margin-right: 10px;
+
+  font-size: 14px;
+  color: black;
+  background-color: #C1F7EE;
+  width: 50px;
+  height: 50px;
+
+  p{
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); 
+  }
+}
+
+@-webkit-keyframes notify {
+  0% {transform: scaleX(0);}
+  10% {transform: scaleX(1);}
+  13% {transform: scale(1.1);}
+  16% {transform: scale(1);}
+  55% {transform: scaleX(1); border-radius: 0%;}
+  65% {transform: scaleX(0.25); border-radius: 50%;}
+  95% {transform: scaleX(0.25); border-radius: 50%;}
+  100% {transform: scaleX(0);}
+}
+
+@keyframes notify {
+  0% {transform: scaleX(0);}
+  10% {transform: scaleX(1);}
+  13% {transform: scale(1.1);}
+  16% {transform: scale(1);}
+  55% {transform: scaleX(1); border-radius: 0%;}
+  65% {transform: scaleX(0.25); border-radius: 50%;}
+  95% {transform: scaleX(0.25); border-radius: 50%;}
+  100% {transform: scaleX(0);}
+}
+
+@-webkit-keyframes exit {
+  0% {opacity: 1;}
+  55% {opacity: 1;}
+  65% {opacity: 0;}  
+  100% {opacity: 0;}
+}
+
+@keyframes exit {
+  0% {opacity: 1;}
+  55% {opacity: 1;}
+  65% {opacity: 0;}  
+  100% {opacity: 0;}
+}
+
+@-webkit-keyframes enter {
+  0% {opacity: 0;}
+  55% {opacity: 0;}
+  65% {opacity: 1; transform: scaleX(1);}
+  100% {opacity: 1; transform: scaleX(1);}
+}
+
+@keyframes enter {
+  0% {opacity: 0;}
+  55% {opacity: 0;}
+  65% {opacity: 1; transform: scaleX(1);}
+  100% {opacity: 1; transform: scaleX(1);}
+}
 // #notificationBar div{
 //     -moz-animation: cssAnimation 0s ease-in 5s forwards;
 //     /* Firefox */

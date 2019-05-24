@@ -38,12 +38,14 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.sessionStarted = false;
     this.sessionStoped = false;
     this.showResponse=false;
     this.isTeacher = this.us.getUserRole() === 'eleve' ? false : true;
 
     if (this.isTeacher) {
+      this.NBStudentsOnline = 0;
       this.wss.openModule(this.actualQCM._id,this.us.currentUser);
       this.wss.listen('NBStudentsOnline').subscribe((nbStudents) => {
         this.NBStudentsOnline = nbStudents;
@@ -137,13 +139,15 @@ export class SessionComponent implements OnInit, OnDestroy {
     }
     this.wss.listen('userConnected').subscribe((studentName)=>{
       //alert('user connected : ' + studentName);
-      document.getElementById('notificationBar').innerHTML += '<div>Nouvel utilisateur connecté : ' + studentName +'</div>'
+      this.notificationStudentCo(studentName);
+     // document.getElementById('notificationBar').innerHTML += '<div>Nouvel utilisateur connecté : ' + studentName +'</div>'
       //console.log('user connected : ' + studentName);
     })
 
     this.wss.listen('userDeconnected').subscribe((studentName)=>{
       //alert('user deconnected : ' + studentName);
-      document.getElementById('notificationBar').innerHTML += '<div>Nouvel utilisateur déconnecté : ' + studentName +'</div>'
+      this.notificationStudentDeco(studentName);
+      //document.getElementById('notificationBar').innerHTML += '<div>Nouvel utilisateur déconnecté : ' + studentName +'</div>'
       //console.log('user deconnected : ' + studentName);
     })
   }
@@ -255,5 +259,42 @@ export class SessionComponent implements OnInit, OnDestroy {
 
   clearCheckbox() {
     this.cbResult1 = this.cbResult2 = this.cbResult3 = this.cbResult4 = false;
+  }
+
+  notificationStudentCo(studentName){
+      document.getElementById('text').innerHTML='Nouvel étudiant connecté : ' + studentName;
+      this.setAnimation();
+      setTimeout(this.clearAnimation(), 3000);
+  }
+  notificationStudentDeco(studentName){
+      document.getElementById('text').innerHTML='Nouvel étudiant déconnecté : ' + studentName;
+      this.setAnimation();
+      setTimeout(this.clearAnimation(), 3000);
+  }
+
+  setAnimation(){
+
+    document.getElementById('notification').style.opacity = '1';
+    document.getElementById('nbStudents').style.opacity = '0';
+
+    document.getElementById('text').style.animation = "exit 3s ease-in-out ";
+    document.getElementById('text').style.webkitAnimation = "exit 3s ease-in-out ";
+
+    document.getElementById('notification').style.animation = "notify 3s ease-in-out";
+    document.getElementById('notification').style.webkitAnimation = "notify 3s ease-in-out";
+
+    document.getElementById('nbStudents').style.animation = "enter 3s ease-in-out";
+    document.getElementById('nbStudents').style.webkitAnimation = "enter 3s ease-in-out ";
+    
+  }
+
+  clearAnimation(){
+    return function() {
+      document.getElementById('text').style.animation = "";
+      document.getElementById('text').style.webkitAnimation = "";
+
+      document.getElementById('notification').style.opacity = '0';
+      document.getElementById('nbStudents').style.opacity = '1';
+    }
   }
 }
